@@ -1,0 +1,21 @@
+[{
+	"name": "story",
+	"schema": {}
+},
+{
+	"name": "user",
+	"schema": {
+		"email": "",
+		"password": ""
+	},
+	"output": {
+		"email": "true",
+		"roles": true
+	},
+	"service": {
+		"create": {
+			"method": "post",
+			"uri": "/api/user"
+		}
+	}
+}]
