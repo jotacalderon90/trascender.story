@@ -1,0 +1,35 @@
+<!--use:_views/m.block-->
+
+<!--define:title-->
+Reestablecer contraseña
+<!--/define:title-->
+
+<!--define:main-->
+	<form role="form" action="/user/recovery" method="POST" onsubmit="return valida()">
+		<div class="page-header">
+			<h1>Reestablecer contraseña</h1>
+		</div>
+		<input name="hash" type="hidden" value="{{data:doc.hash}}" />
+		<input class="form-control" placeholder="Nueva password" name="password" type="password" value="" />
+		<input class="form-control" placeholder="Repita password" name="password2" type="password" value="" />
+		
+		<!--if:doc.config.recaptcha && doc.config.recaptcha.enabled-->
+		<div class="g-recaptcha" data-sitekey="{{data:doc.config.recaptcha.public}}"></div>
+		<br>
+		<!--/if-->
+		
+		<button type="submit" class="btn btn-lg btn-success btn-block" >Reestablecer</button>
+	</form>
+<!--/define:main-->
+
+<!--define:script-->
+	<script>
+		function valida(){
+			if(document.forms[0].password.value!=document.forms[0].password2.value){
+				alert("Contraseñas no coindiden");
+				return false;
+			}
+			return true;
+		}
+	</script>
+<!--/define:script-->

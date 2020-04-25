@@ -1,0 +1,21 @@
+<!--use:_views/m.block-->
+
+<!--define:title-->
+{{data:doc.title}}
+<!--/define:title-->
+
+<!--define:main-->
+	<form>
+		<div class="page-header">
+			<h1 class="text-{{data:doc.class}}">{{data:doc.title}} <br><small>{{data:doc.message}}</small></h1>
+		</div>
+		<div class="text-right">
+			<!--if:doc.error==401-->
+			<a href="/user/login" >Ingresar</a>
+			<!--/if-->
+			<!--if:doc.error!=401-->
+			<a href="/" >Inicio</a>
+			<!--/if-->
+		</div>
+	</form>
+<!--/define:main-->

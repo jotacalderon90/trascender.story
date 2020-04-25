@@ -1,0 +1,40 @@
+<div class="modal fade" id="mdMessage" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Mensaje al administrador</h4>
+			</div>
+			<div class="modal-body">
+				<form id="contacto" data-ng-app="myApp" data-ng-controller="messageCtrl as ctrl">
+					<div class="form-group" data-ng-show="ctrl.user.doc==null">
+						<input type="text" class="form-control" placeholder="Email" data-ng-model="ctrl.message.newdoc.email" />
+					</div>
+					<div class="form-group" >
+						<textarea class="form-control" placeholder="Mensaje" rows="10" data-ng-model="ctrl.message.newdoc.mensaje" ></textarea>
+					</div>
+					<div class="g-recaptcha" data-sitekey="{{data:doc.config.recaptcha.public}}" ></div>
+					<br />
+					<button type="button" class="btn btn-primary" data-ng-click="ctrl.message.newdoc.subject='Mensaje desde adentro del portal';ctrl.message.create()" >ENVIAR</button>
+					<br />
+					<br />
+					<div class="alert" data-ng-repeat="doc in ctrl.message.logger.coll" data-ng-show="doc.show" data-ng-class="doc.class" >
+						<p>
+							<i class="fa fa-spinner fa-spin" aria-hidden="true" data-ng-show="doc.spinner" ></i>{{doc.msg}}
+							<span data-ng-click="doc.show=!doc.show" class="glyphicon glyphicon-remove pull-right" ></span>
+						</p>
+						<div data-ng-show="doc.err!=null" >
+							<p >
+								<span >Tipo: {{doc.err.type}}</span>
+								<br />
+								<span >Estado: {{doc.err.status}}</span>
+								<br />
+								<span >Mensaje: {{doc.err.desc}}</span>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

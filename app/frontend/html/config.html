@@ -1,0 +1,39 @@
+<!--use:_views/m.block-->
+
+<!--define:title-->
+Configuración
+<!--/define:title-->
+
+<!--define:main-->
+	<form>
+		<div class="page-header">
+			<h1>Configuración del sistema</h1>
+		</div>
+		<div class="panel-body" data-ng-app="myApp" data-ng-controller="configCtrl as ctrl">
+			<textarea class="form-control" rows="10" data-ng-model="ctrl.config.doc.content"></textarea>
+			<br>
+			<div class="btn-group pull-right">
+				<button type="button" class="btn btn-primary" data-ng-click="ctrl.config.update()">
+					<i class="fa fa-check"></i>
+				</button>
+				<button type="button" class="btn btn-danger" data-ng-click="ctrl.config.delete()">
+					<i class="fa fa-trash"></i>
+				</button>
+			</div>
+		</div>
+	</form>
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="js/lib/trascender.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('myApp',[]);
+		app.factory("trascender", function(){
+			return trascender;
+		});
+		var c = {{data:doc.c}};
+	</script>
+	<script type="text/javascript" src="js/config.js"></script>
+<!--/define:script-->

@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+	<head>
+		<!--Metas-->
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta name="keywords" content="trascender" />
+		<meta name="description" content="trascender" />
+		<meta name="Author" content="@trascender.org" />
+		<!--Title-->
+		<title>Red Antisocial
+		</title>
+		<!--Base-->
+		<base href="/" />
+		<!--Favicon-->
+		<link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="media/img/favicon.ico" type="image/x-icon">
+		<!--Styles-->
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" media="all"/>
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" media="all"/>
+		<link rel="stylesheet" href="css/www.css" media="all"/> 
+		<link rel="stylesheet" href="css/product.css" media="all"/> 
+		<link rel="stylesheet" href="css/blog.css" media="all"/> 
+		<!--Captcha-->
+		<!--if:doc.config.recaptcha.enabled-->
+		<script src='https://www.google.com/recaptcha/api.js'>
+		</script>
+		<!--/if-->
+		<!--if:doc.config.public.analytics && doc.config.public.analytics!=""-->
+		<!--Analytics-->
+		<script async src="https://www.googletagmanager.com/gtag/js?id={{data:doc.config.public.analytics}}">
+		</script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', '{{data:doc.config.public.analytics}}');
+		</script>
+		<!--/if-->
+		<!--Captcha-->
+		<link rel="manifest" href="/manifest.json?id=index"/>
+		
+	</head>
+	<body>
+		<div id="simpleweb" data-ng-app="myApp" >
+		  <header class="fp" >
+		    <img src="/media/img/simpleweb/img2.jpg" class="fp hidden-xs" alt="simpleweb" />
+		    <h1 >Red Antisocial
+		    </h1>
+		    <div class="opacity" >
+		    </div>
+		  </header>
+		  <!--include:product/resume-->
+		  <section >
+		    <div class="container" >
+		      <br />
+		      <br />
+		      <form method="post" action="/user/subscription" >
+		        <div class="input-group input-group-lg" >
+		          <input type="text" name="email" class="form-control input-lg" placeholder="Subscríbete aquí con tu email" />
+		          <span class="input-group-btn" >
+		            <button class="btn btn-default" type="submit" >
+		              <i class="fa fa-check" >
+		              </i>
+		            </button>
+		          </span>
+		        </div>
+		      </form>
+		      <br />
+		      <br />
+		    </div>
+		  </section>
+		  <!--include:blog/resume-->
+		  <main class="fp" >
+		    <img src="/media/img/simpleweb/img1.jpg" class="fp" alt="simpleweb" />
+		    <section >
+		      <h2 >Analista Programador
+		      </h2>
+		      <br />
+		      <p >Bienvenido a mi red antisocial, un experimento personal para ver si puedo recuperar algo de privacidad en Internet sin perder el contacto con aquellos que estime conveniente. Si te interesa tener la tuya propia no dudes en escribirme, apoyo a todos los que se atrevan a introducirse en este complejo mundo. Esta red contiene secciones básicas de comunicación pero pretende ir mejorando con el tiempo.
+		      </p>
+		    </section>
+		  </main>
+		  <section class="fp" >
+		    <div class="row" >
+		      <div class="col-md-6" >
+		        <p >
+		          <strong >CONTACTAME
+		          </strong>
+		        </p>
+		        <p >El tiempo es algo que aprecio mucho, no pretendo hacerte perder el tuyo así que intentare responderte a la brevedad.
+		        </p>
+		      </div>
+		      <div class="col-md-6" >
+		        <form id="contacto" data-ng-controller="messageCtrl as ctrl" >
+		          <div class="form-group" >
+		            <input class="form-control" placeholder="Email" data-ng-model="ctrl.message.newdoc.email" type="text" />
+		          </div>
+		          <div class="form-group" >
+		            <textarea class="form-control" placeholder="Mensaje" rows="5" data-ng-model="ctrl.message.newdoc.message" >
+		            </textarea>
+		          </div>
+		          <!--if:doc.config.recaptcha.enabled-->
+		          <div class="g-recaptcha" data-sitekey="{{data:doc.config.recaptcha.public}}" >
+		          </div>
+		          <br />
+		          <!--/if-->
+		          <button class="btn btn-primary" data-ng-click="ctrl.message.newdoc.subject='Mensaje de la web';ctrl.message.create()" >ENVIAR
+		          </button>
+		          <br />
+		          <br />
+		          <div class="alert" data-ng-repeat="doc in ctrl.message.log" data-ng-show="doc.show" data-ng-class="doc.class" >
+		            <p >
+		              <span data-ng-click="doc.show=!doc.show" class="glyphicon glyphicon-remove pull-right" >
+		              </span>
+		              <i class="fa fa-spinner fa-spin" aria-hidden="true" data-ng-show="doc.spinner" >
+		              </i>
+		              <span data-ng-click="doc.showError=!doc.showError" >{{doc.msg}}
+		              </span>
+		              <br />
+		              <small data-ng-show="doc.showError" >
+		                <span data-ng-repeat="(key, value) in doc.xhttp.json.error" >
+		                  {{key}}: {{value}}
+		                  <br />
+		                </span>
+		              </small>
+		            </p>
+		          </div>
+		        </form>
+		      </div>
+		    </div>
+		  </section>
+		  <address class="fp" >
+		    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d64306676.77794285!2d-70.10534490223996!3d-10.344438585612783!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2scl!4v1537988510973" data-tr="" data-label="Footer - Mapa" data-dinamyc="src" allowfullscreen="" width="600" height="450" >
+		    </iframe>
+		  </address>
+		  <footer >
+		    <p >Ubicado en algún lugar del mapa
+		    </p>
+		  </footer>
+		</div>
+		
+		<!--<js>-->
+		<script src="bower_components/jquery/dist/jquery.min.js">
+		</script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js">
+		</script>
+		<script src="bower_components/angular/angular.min.js">
+		</script>
+		<script src="js/lib/moment.js">
+		</script>
+		<script src="js/lib/moment-with-locales.js">
+		</script>
+		<script src="js/lib/trascender.js">
+		</script>
+		<script>
+		  var app = angular.module('myApp',[]);
+		  app.factory("trascender", function(){
+		  return trascender;
+		  });
+		  moment.locale("es");
+		  var instances = {
+			blog: ["resume"],
+			product: ["resume"]
+		  }
+		</script>
+		<script src="js/user.js">
+		</script>
+		<script src="js/message.js">
+		</script>
+		<script src="js/product.js">
+		</script>
+		<script src="js/blog.js">
+		</script>
+		<script type="text/javascript" src="/loader.js?id=index">
+		</script>
+		
+		<!--</js>-->
+	</body>
+</html>

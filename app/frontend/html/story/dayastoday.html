@@ -1,0 +1,32 @@
+<!--use:_views/m.main-->
+
+<!--define:title-->
+Un día como hoy
+<!--/define:title-->
+
+<!--define:css-->
+<link rel="stylesheet" href="css/story.css" />
+<!--/define:css-->
+
+<!--define:main-->
+	<div data-ng-controller="storyCtrl as ctrl">
+		<div class="page-header">
+			<h1>
+				<a href="/story">Historia</a>
+				<small>Un día como hoy</small>
+			</h1>
+		</div>
+			
+		<!--ARTICLE-->
+		<div data-ng-repeat="row in ctrl.resume.coll">
+			<!--include:story/article-->
+		</div>
+	</div>
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript">
+		var instances = {story: ["resume"]};
+	</script>
+	<script type="text/javascript" src="js/story.js"></script>
+<!--/define:script-->

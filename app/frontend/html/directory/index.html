@@ -1,0 +1,167 @@
+<!--use:_views/m.main-->
+
+<!--define:title-->
+File Manager
+<!--/define:title-->
+
+<!--define:css-->
+	<link rel="stylesheet" href="css/filemanager.css" media="all"/> 
+<!--/define:css-->
+
+<!--define:main-->
+	<div data-ng-controller="directoryCtrl as ctrl" id="dv-filemanager">
+		<div class="page-header">
+			<h1>{{data:doc.client.name}}</h1>
+		</div>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4">
+					<ul id="directory"></ul>
+				</div>
+				<div class="col-md-8">
+					<div data-ng-show="ctrl.archive!=null">
+						<!--Acciones-->
+						<div class="btn-group btn-group-xs btn-group-justified" style="font-size: 10px;">
+						
+							<!--<div class="btn-group" role="group" data-ng-show="ctrl.user.isAdmin()">
+								<button class="btn btn-default" title="Renombrar" data-toggle="modal" data-target="#mdRename{{$index}}">
+									<i class="fa fa-edit"></i> Renombrar
+								</button>
+							</div>
+							<div class="btn-group" role="group" data-ng-show="ctrl.user.isAdmin()">
+								<button class="btn btn-default" title="Reubicar" data-toggle="modal" data-target="#mdReubicar{{$index}}">
+									<i class="fa fa-edit"></i> Reubicar
+								</button>
+							</div>
+							<div class="btn-group" role="group" data-ng-show="ctrl.user.isAdmin() && ctrl.isFolder">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-plus"></i> Nuevo
+								</button>
+								<ul class="dropdown-menu">
+									<li><a data-toggle="modal" data-target="#mdAgregar{{$index}}" data-ng-click="new_file='file'">Archivo</a></li>
+									<li><a data-toggle="modal" data-target="#mdAgregar{{$index}}" data-ng-click="new_file='folder'">Carpeta</a></li>
+								</ul>
+							</div>-->
+							<div class="btn-group" role="group" data-ng-show="ctrl.user.isAdmin()">
+								<button class="btn btn-default" data-ng-click="ctrl.delete()" title="Eliminar">
+								<i class="fa fa-trash"></i> Eliminar
+								</button>
+							</div>
+							<div class="btn-group" role="group" data-ng-show="ctrl.user.isAdmin() && ctrl.isTextFile">
+								<button class="btn btn-default" data-ng-click="ctrl.update()" title="Guardar" >
+								<i class="fa fa-save"></i> Guardar
+								</button>
+							</div>
+							
+							
+							
+							<div class="btn-group" role="group" data-ng-show="ctrl.isFile" >
+								<a class="btn btn-default" data-ng-href="{{ctrl.fullnameDOWNLOAD}}" target="_blank" title="Descargar">
+								<i class="fa fa-download"></i> Descargar
+								</a>
+							</div>
+							<div class="btn-group" role="group" data-ng-show="ctrl.isFile" >
+								<a class="btn btn-default" data-ng-href="{{ctrl.fullnameGET}}" target="_blank" title="Visualizar">
+								<i class="fa fa-eye"></i> Visualizar
+								</a>
+							</div>
+							<div class="btn-group" role="group">
+								<button class="btn btn-default" data-ng-click="ctrl.close()" title="Cerrar">
+								<i class="fa fa-close"></i> Cerrar
+								</button>
+							</div>
+						</div>
+						<br>
+						
+						<div id="dropzone" data-ng-show="false">
+							Arrastrar archivos a este espacio
+							<i class="fa fa-spin fa-spinner" data-ng-show="ctrl.uploader.inprocess"></i>
+						</div>
+						
+						<form id="fileupload" method="post" action="" encType="multipart/form-data" data-ng-show="ctrl.isFolder && ctrl.user.isAdmin()">
+							<input type="file" name="file" multiple/>
+							<button type="submit" class="btn btn-primary">Subir</button>
+						</form>
+						
+						<div data-ng-show="ctrl.isFile">
+							<textarea rows="15" class="form-control" data-ng-show="ctrl.isTextFile" data-ng-model="ctrl.fileContent"></textarea>
+							<div class="panel-body dv-visualcontent" data-ng-show="ctrl.isMediaFile"></div>
+						</div>
+						
+					</div>
+					
+					
+					<!--Modal Renombrar-->
+					<div class="modal fade" id="mdRename{{$index}}" tabindex="-1" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Renombrar fichero</h4>
+								</div>
+								<div class="modal-body">
+									<form>
+										<input type="text" class="form-control" placeholder="Nombre" data-ng-model="row.doc.newname">
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-primary" data-ng-click="row.rename()" data-dismiss="modal">Guardar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!--Modal Nuevo fichero-->
+					<div class="modal fade" id="mdAgregar{{$index}}" tabindex="-1" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Nuevo fichero</h4>
+								</div>
+								<div class="modal-body">
+									<form>
+										<input type="text" class="form-control" placeholder="Nombre del nuevo fichero" data-ng-model="row.newdocname">
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-primary" data-ng-show="new_file=='file'" data-ng-click="row.file.newdoc.name=row.newdocname;row.file.create()" data-dismiss="modal">Guardar</button>
+									<button type="button" class="btn btn-primary" data-ng-show="new_file=='folder'" data-ng-click="row.folder.newdoc.name=row.newdocname;row.folder.create()" data-dismiss="modal">Guardar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+					<!-- Modal Reubicar por carpetas--> 
+					<div data-ng-repeat="row in ctrl.folders" class="modal fade" id="mdReubicar{{$index}}" tabindex="-1" role="dialog">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Reubicar fichero</h4>
+								</div>
+								<div class="modal-body">
+									
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-primary" data-ng-click="ctrl.directories[$index].relocate(row.getNode())" data-dismiss="modal">Reubicar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript" src="bower_components/html5-uploader/dist/html5-uploader.min.js"></script>
+	<script type="text/javascript">
+		var directory = {{data:JSON.stringify(doc.client)}};
+	</script>
+	<script type="text/javascript" src="js/directory.js"></script>
+<!--/define:script-->

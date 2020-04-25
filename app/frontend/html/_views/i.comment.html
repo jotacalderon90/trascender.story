@@ -1,0 +1,27 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="row" data-ng-controller="commentCtrl as ctrl">
+	<div class="col-md-8 col-md-offset-2">
+		<ul class="list-group">
+			<li class="list-group-item" data-ng-repeat="row in ctrl.comment.coll">
+				<img data-ng-src="{{ctrl.comment.users[row.author].thumb}}" title="{{ctrl.comment.users[row.author].nickname}}" height="40" class="img-circle" style="border: 1px dotted grey;vertical-align: top"/>
+				<small title="{{row.datetitle}}">{{row.datefromnow}}</small>
+				<br>
+				<br>
+				<p>{{row.comment}}. </p>
+			</li>
+		</ul>
+		<div data-ng-show="ctrl.user.doc.roles.indexOf('user')>-1">
+			<br>
+			<textarea class="form-control" rows="5" placeholder="Ingrese sus comentarios..." data-ng-model="ctrl.comment.newdoc.comment"></textarea>
+			<br>
+			<button class="btn btn-primary pull-right" data-ng-click="ctrl.comment.create()">Publicar</button>
+		</div>
+		<div class="alert alert-warning" data-ng-show="ctrl.user.doc==null">
+			<p>Para publicar comentarios <a href="/user">registrate</a> o <a href="/user/login">ingresa sesión.</a></p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+{
+	"properties": {
+		"port": 80,
+		"host": "http://localhost:80",
+		"admin": "demo@demo.cl",
+		"secret": "trascender-con-sso",
+		"cors": true
+	},
+	"database": {
+		"url": "mongodb://127.0.0.1:27017",
+		"db": "trascender"
+	},
+	"smtp": {
+		"enabled": false,
+		"host": "smtp.gmail.com",
+		"secureConnection": true,
+		"port": 587,
+		"user": "",
+		"pass": ""
+	},
+	"recaptcha": {
+		"enabled": false,
+		"public": "",
+		"private": ""
+	},
+	"google": {
+		"auth": {
+			"enabled": false,
+			"clientId": "",
+			"clientSecret": "",
+			"redirect": ""
+		}
+	}
+}

@@ -1,0 +1,40 @@
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top fixed" data-ng-controller="navCtrl as ctrl" >
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand hidden-xs" href="/">
+				<img src="/media/img/logo.png" id="logo" alt="{{data:doc.config.public.title}}" title="{{data:doc.config.public.title}}"/>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right visible-xs">
+				<!--include:_views/i.aside-->
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li data-ng-show="ctrl.user.doc.roles.indexOf('user')>-1">
+					<a href="tel: 11111111">
+					<span class="fa fa-phone" ></span>
+					</a>
+				</li>
+				<li class="dropdown" >
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						<span class="fa fa-user"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="/user/info" data-ng-show="ctrl.user.doc.roles.indexOf('user')>-1">Mi Perfil</a></li>
+						<li><a href="/user/logout" data-ng-show="ctrl.user.doc.roles.indexOf('user')>-1">Cerrar sesión</a></li>
+						<li><a href="/user/login" data-ng-show="ctrl.user.doc==null">Ingresar</a></li>
+						<li><a href="/user" data-ng-show="ctrl.user.doc==null">Crear Cuenta</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

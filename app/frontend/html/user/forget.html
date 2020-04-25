@@ -1,0 +1,21 @@
+<!--use:_views/m.block-->
+
+<!--define:title-->
+Olvidaste tu password
+<!--/define:title-->
+
+<!--define:main-->
+	<form role="form" action="/user/forget" method="POST">
+		<div class="page-header">
+			<h1>Olvidaste tu password</h1>
+		</div>
+		<input class="form-control" placeholder="Email Address" name="email" type="text" autofocus="" />
+		
+		<!--if:doc.config.recaptcha && doc.config.recaptcha.enabled-->
+		<div class="g-recaptcha" data-sitekey="{{data:doc.config.recaptcha.public}}"></div>
+		<br>
+		<!--/if-->
+		
+		<button type="submit" class="btn btn-lg btn-success btn-block" >Recupera tu password</button>
+	</form>
+<!--/define:main-->

@@ -1,0 +1,103 @@
+<!--use:_views/m.main-->
+
+<!--define:title-->
+Database
+<!--/define:title-->
+
+<!--define:main-->
+	<div data-ng-controller="databaseCtrl as ctrl">
+		<div class="page-header">
+			<h1>Base de datos</h1>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<td colspan="{{ctrl.object.doc.cols+2}}">
+						Documentos tipo 
+						<select data-ng-model="ctrl.object.doc" data-ng-change="ctrl.object.select(ctrl.object.doc)">
+							<option></option>
+							<option data-ng-repeat="doc in ctrl.object.coll" value="{{doc}}">{{doc.label}}</option>
+						</select>
+						<button class="btn btn-link btn-xs " data-toggle="modal" data-target="#modalObject" data-ng-show=" ctrl.user.isAdmin()">
+							<i class="fa fa-pencil"></i>
+						</button>
+						<button class="btn btn-link btn-xs pull-right" data-toggle="modal" data-target="#modalObject" data-ng-click="ctrl.object.new()">
+							<i class="fa fa-plus"></i>
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<th>#</th>
+					<th data-ng-repeat="(key, value) in ctrl.object.getOutput()">{{key}}</th>
+					<th class="text-right">
+						<button class="btn btn-xs btn-link" data-ng-click="ctrl.document.wantFilter=!ctrl.document.wantFilter">
+							<i class="fa fa-arrow-down" data-ng-show="!ctrl.document.wantFilter"></i>
+							<i class="fa fa-arrow-up" data-ng-show="ctrl.document.wantFilter"></i>
+						</button>
+						<button class="btn btn-xs btn-link" data-toggle="modal" data-target="#modalDocument" data-ng-click="ctrl.document.new()" data-ng-show=" ctrl.user.isAdmin()">
+							<i class="fa fa-plus"></i>
+						</button>
+						<button class="btn btn-xs btn-link" data-ng-click="ctrl.document.getTotal()">
+							<i class="fa fa-refresh"></i>
+						</button>
+						<button class="btn btn-xs btn-link" data-ng-click="ctrl.document.getALL()" data-ng-show=" ctrl.user.isAdmin()">
+							<i class="fa fa-download"></i>
+						</button>
+						<button class="btn btn-xs btn-link" data-ng-show=" ctrl.user.isAdmin()" data-toggle="modal" data-target="#modalAll">
+							<i class="fa fa-upload"></i>
+						</button>
+						<button class="btn btn-xs btn-link" data-ng-show=" ctrl.user.isAdmin()" data-toggle="modal" data-target="#modalImport">
+							import
+						</button>
+					</th>
+				</tr>
+				<tr data-ng-show="ctrl.document.wantFilter">
+					<th></th>
+					<th data-ng-repeat="(key, value) in ctrl.object.getOutput()">
+						<input type="text" data-ng-model="ctrl.document.filter[key]" data-ng-blur="ctrl.document.getTotal()"/>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="doc in ctrl.document.coll">
+					<td>{{ctrl.document.obtained + $index + 1 - ctrl.document.coll.length}}</td>
+					<td data-ng-repeat="(key, value) in ctrl.object.getOutput()">
+						{{doc[key]}}
+					</td>
+					<td class="text-right">
+						<button class="btn btn-link btn-xs" data-ng-click="ctrl.document.read({name: ctrl.object.doc.name,id:doc._id})">
+							<span class="fa fa-eye"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="{{ctrl.object.doc.cols+2}}">
+						<ul class="pagination pagination-sm">
+							<li>
+								<a data-ng-click="ctrl.document.gotoFirstPage()" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+							</li>
+							<li data-ng-repeat="page in ctrl.document.getPages()" data-ng-class="ctrl.document.isSelected(page)">
+								<a data-ng-click="ctrl.document.gotoPage(page)"><span aria-hidden="true">{{page}}</span></a>
+							</li>
+							<li>
+								<a data-ng-click="ctrl.document.gotoLastPage()" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+							</li>
+						</ul>
+						<p>Resultado de la b&uacute;squeda: {{ctrl.document.cant|number}} documentos</p>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<!--include:database/md_object-->
+		<!--include:database/md_document-->
+		<!--include:database/md_all-->
+		<!--include:database/md_import-->
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript" src="bower_components/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="js/database.js"></script>
+<!--/define:script-->

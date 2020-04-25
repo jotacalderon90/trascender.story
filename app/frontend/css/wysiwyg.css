@@ -1,0 +1,106 @@
+/***************************/
+/*MENU VERTICAL DESPLEGABLE*/
+/***************************/
+
+input#abrir-cerrar {
+    display:none;
+}
+input#abrir-cerrar:checked ~ #nav-main {
+    width:auto;
+	padding: 25px;
+}
+label[for="abrir-cerrar"] {
+    cursor:pointer;
+    padding: 1rem;
+    background-color:#333;
+    color:#fff;
+	position: fixed;
+	top:  50%;
+	left: 0;
+	z-index: 999999;
+}
+#nav-main{
+    width:0;
+    position: fixed;
+    height: 100%;
+    width: 0;
+    top: 0;
+    left: 0;
+    z-index: 999998;
+    background-color: #00324b;
+    overflow-x: hidden;
+    transition: 0.4s;
+    padding: 1rem 0;
+    box-sizing:border-box;
+}
+#nav-main ul li {
+	color: #FFF;
+	margin:0px;
+}
+#nav-main .btn-logout {
+    position: absolute;
+	bottom: 5px;
+}
+
+/***************************/
+/*******MENSAJE INICIAL*****/
+/***************************/
+
+.alert-ini{
+	position: absolute;
+	top: 50%;
+	left:25%;
+	right:25%;
+	text-align: center;
+}
+
+/**********************/
+/*******DOM EDITOR*****/
+/**********************/
+
+#uiTreedom{
+	font-size: 9px;
+	text-transform: lowercase;
+}
+#uiTreedom .list-group-item{
+	padding: 2px 7px;
+}
+#uiTreedom .nodeHover{
+	background:#F2F2F2;
+}
+#uiTreedom .nodeSelected {
+	border:1px dotted #424242;
+	opacity: 0.75;
+	color: orange;
+}
+#uiTreedom .noDisplay {
+	display:none;
+}
+
+ol ol, ol ul, ul ol, ul ul{
+	padding-left: 10px;
+}
+
+
+/*****MODAL HTML******/
+#mdHTML .modal-lg{
+	width: 95%;
+}
+
+.container-fluid{
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
+.alert-transcend{
+	position:fixed;
+	right:0px;
+	bottom: 0px;
+	width:25%;
+}
+.alert-transcend-logger{
+	position:relative;
+	display:block;
+	z-index:99999;
+	bottom:0px;
+}

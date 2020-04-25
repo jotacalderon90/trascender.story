@@ -1,0 +1,25 @@
+/***********/
+/*DIRECTORY*/
+/***********/
+#directory * { list-style:none;}
+#directory li{ line-height:180%;}
+#directory input{position: absolute;left: -1000em;}
+#directory .folder:before{ content:"\025b8"; margin-right:4px;}
+#directory input:checked ~ .folder:before{ content:"\025be";}
+#directory .inside{display: none;margin-left: 25px;}
+#directory input:checked ~ ul{display:block;}
+#directory .selected{color:green;}
+/**********/
+/*DROPZONE*/
+/**********/
+#dropzone{
+	border: dotted 3px lightgray;
+	text-align:center;
+	background: inherit;
+	min-height: 300px;
+	line-height:250px;
+	font-size: 32px;
+}
+.hover{
+	border: dotted 3px green!important;
+}

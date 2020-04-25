@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+	
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!--define:meta-->
+		
+		<title><!--define:title--></title>
+		
+		<base href="/" />
+		
+		<link rel="shortcut icon" href="media/img/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="media/img/favicon.ico" type="image/x-icon">
+		
+		<link rel="stylesheet" href="bower_components/jquery-ui/themes/base/jquery-ui.min.css" />
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
+		<!--define:css-->
+		<!--define:head-->
+		
+		<!--Captcha-->
+		<!--if:doc.config.recaptcha.enabled-->
+		<script src='https://www.google.com/recaptcha/api.js'>
+		</script>
+		<!--/if-->
+	</head>
+	<body>
+		<!--define:main-->
+		
+		<!--<js>-->
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="js/lib/socket.io-2.0.3.js"></script>
+		<script type="text/javascript" src="js/lib/jcryption.js"></script>
+		<script type="text/javascript" src="js/lib/moment.js"></script>
+		<script type="text/javascript" src="js/lib/moment-with-locales.js"></script>
+		<script type="text/javascript" src="js/lib/trascender.js"></script>
+		<script type="text/javascript">
+			var app = angular.module('myApp',[]);
+			app.factory("trascender", function(){
+				return trascender;
+			});
+			moment.locale("es");
+			var host = "{{data:doc.config.properties.host}}";
+		</script>
+		<script type="text/javascript" src="js/user.js"></script>
+		<script type="text/javascript" src="js/chat.js"></script>
+		<!--define:script-->
+		<!--</js>-->
+	</body>
+</html>

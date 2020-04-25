@@ -1,0 +1,35 @@
+<!--use:_views/m.block-->
+
+<!--define:title-->
+Login
+<!--/define:title-->
+
+<!--define:main-->
+	<form role="form" action="/user/login" method="POST">
+		<div class="page-header">
+			<h1>Ingresar</h1>
+		</div>
+		<input class="form-control" placeholder="Email Address" name="email" type="text" autofocus="" />
+		<input class="form-control" placeholder="Password" name="password" type="password" value="" />
+		<!--if:data:doc.config.recaptcha.enabled-->
+		<div class="g-recaptcha" data-sitekey="{{data:doc.config.recaptcha.public}}"></div>
+		<!--/if-->
+		<br>
+		<button type="submit" class="btn btn-lg btn-success btn-block" >Ingresar</button>
+		
+		<!--if:data:doc.google_url!=""-->
+		<a href="{{data:doc.google_url}}" class="btn btn-lg btn-primary btn-block">
+			<img src="https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png" height="20"/>
+			Ingresar con Google
+		</a>
+		<!--/if-->
+		
+		<hr>
+		<div class="text-right">
+			<a href="/user/forget">¿Olvidaste tu password?</a>
+		</div>
+	</form>
+	<script>
+		document.cookie = "Authorization=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+	</script>
+<!--/define:main-->

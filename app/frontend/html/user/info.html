@@ -1,0 +1,38 @@
+<!--use:_views/m.main-->
+
+<!--define:title-->
+Mi perfil
+<!--/define:title-->
+
+<!--define:main-->
+	<form role="form" action="/user/update" method="POST">
+		<div class="page-header">
+			<h1>Mi perfil <small>{{data:doc.user.email}}</small></h1>
+		</div>
+		<div class="row">
+			<div class="col-md-3 text-center in-main">
+				<img src="{{data:doc.user.thumb}}" alt="thumb">
+			</div>
+			<div class="col-md-9 in-main">
+				<!--if:!doc.user.google-->
+				<label>Contraseña</label>
+				<input class="form-control" placeholder="Password" name="password" type="password" value="{{data:doc.user.password}}" />
+				<!--/if-->
+				<label>Nombre de usuario</label>
+				<input class="form-control" placeholder="Nickname" name="nickname" type="text" value="{{data:doc.user.nickname}}" />
+				<label>Link de ícono</label>
+				<input class="form-control" placeholder="Thumb" name="thumb" type="text" value="{{data:doc.user.thumb}}" />
+				<label>Recibir notificaciones</label>
+				<br>
+				<br>
+				<label class="switch">
+					<input type="checkbox" name="notification" <!--if:doc.user.notification-->checked<!--/if--> value="true">
+					<span class="slider round"></span>
+				</label>
+				<button type="submit" class="btn btn-success btn-lg pull-right">
+					Guardar cambios
+				</button>
+			</div>
+		</div>
+	</form>
+<!--/define:main-->

@@ -1,0 +1,38 @@
+<div class="modal fade" id="mdForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Información de mapa</h4>
+			</div>
+			<div class="modal-body">
+				<label>Latitud</label>
+				<input type="text" class="form-control" data-ng-model="ctrl.document.getDoc().LAT" disabled>
+				<label>Longitud</label>
+				<input type="text" class="form-control" data-ng-model="ctrl.document.getDoc().LNG" disabled>
+				<br>
+				<br>
+				<button class="btn btn-warning" data-ng-click="ctrl.document.setLoc()">Setear en mapa</button>
+				<br>
+				<br>
+				<label>Zoom</label>
+				<input type="text" class="form-control" data-ng-model="ctrl.document.getDoc().ZOOM">
+				<label>AUDIO</label>
+				<input type="text" class="form-control" data-ng-model="ctrl.document.getDoc().AUDIO">
+			</div>
+			<div class="modal-footer">
+				<a class="btn btn-info" href="/story/edit/{{ctrl.document.getDoc().STORY}}" target="_blank">
+					Modificar documento histórico
+				</a>
+				<button type="button" class="btn btn-primary" title="Crear" data-ng-show="ctrl.document.isCreateMode()" data-ng-click="ctrl.document.create()">
+					<i class="fa fa-check" data-ng-show="!ctrl.document.createLog.spinner"></i>
+					<i class="fa fa-spinner fa-spin" data-ng-show="ctrl.document.createLog.spinner"></i>
+				</button>
+				<button type="button" class="btn btn-primary" title="Actualizar" data-ng-show="ctrl.document.isEditMode()" data-ng-click="ctrl.document.update()">
+					<i class="fa fa-check" data-ng-show="!ctrl.document.updateLog.spinner"></i>
+					<i class="fa fa-spinner fa-spin" data-ng-show="ctrl.document.updateLog.spinner"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

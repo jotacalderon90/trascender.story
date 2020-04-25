@@ -1,0 +1,36 @@
+<div class="modal fade" id="modalObject" tabindex="-1">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Objeto</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Contenido</label>
+					<textarea class="form-control" rows="20" data-ng-model="ctrl.object.getDoc().content" data-ng-disabled="ctrl.object.isReadMode()"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					<i class="fa fa-close"></i>
+				</button>
+				<button type="button" class="btn btn-primary" data-ng-click="ctrl.object.create()" data-ng-show="ctrl.object.isCreateMode()" title="ctrl.object.createLog.msg">
+					<i class="fa fa-check" data-ng-show="!ctrl.object.createLog.spinner"></i>
+					<i class="fa fa-spinner fa-spin" data-ng-show="ctrl.object.createLog.spinner"></i>
+				</button>
+				<button type="button" class="btn btn-danger" data-ng-click="ctrl.object.delete()" data-ng-show="ctrl.object.isEditMode()" title="ctrl.object.deleteLog.msg">
+					<i class="fa fa-trash" data-ng-show="!ctrl.object.deleteLog.spinner"></i>
+					<i class="fa fa-spinner fa-spin" data-ng-show="ctrl.object.deleteLog.spinner"></i>
+				</button>
+				<button type="button" class="btn btn-primary" data-ng-click="ctrl.object.edit()" data-ng-show="ctrl.object.isReadMode()">
+					<i class="fa fa-pencil"></i>
+				</button>
+				<button type="button" class="btn btn-success" data-ng-click="ctrl.object.update()" data-ng-show="ctrl.object.isEditMode()" title="ctrl.object.updateLog.msg">
+					<i class="fa fa-check" data-ng-show="!ctrl.object.updateLog.spinner"></i>
+					<i class="fa fa-spinner fa-spin" data-ng-show="ctrl.object.updateLog.spinner"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

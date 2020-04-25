@@ -1,0 +1,86 @@
+<!--use:_views/m.main-->
+
+<!--define:title-->
+{{data:doc.title}}
+<!--/define:title-->
+
+<!--define:css-->
+<link rel="stylesheet" href="css/story.css" />
+<!--/define:css-->
+
+<!--define:main-->
+	<div data-ng-controller="storyCtrl as ctrl">
+		<div class="page-header">
+			<div class="pull-right">
+				<div class="btn-group btn-group-xs" role="group" >
+					<button type="button" class="btn btn-info" >
+						<span>{{ctrl.collection.obtained}} registros de {{ctrl.collection.cant}}</span>
+					</button>
+					<button type="button" class="btn btn-warning" data-ng-click="ctrl.collection.sorted = ctrl.collection.sorted * -1;ctrl.collection.getTotal()">
+						{{ctrl.collection.getSortInfo('label')}}
+					</button>
+					<button type="button" class="btn btn-default" title="Buscar" data-toggle="modal" data-target="#mdFilter">
+						<i class="fa fa-search"></i>
+					</button>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-xs">Tags</button>
+						<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="caret"></span>
+							<span class="sr-only">Toggle Dropdown</span>
+						</button>
+						<ul class="dropdown-menu">
+							<li data-ng-repeat="row in ctrl.collection.tag">
+								<a data-ng-href="/story/categoria/{{row}}">{{row}}</a>
+							</li>
+						</ul>
+					</div>
+					<a href="/story/new" class="btn btn-primary" title="nuevo" >
+						<i class="fa fa-plus"></i>
+					</a>
+				</div>
+			</div>
+			<h1>
+				<a href="/story">Historia</a>
+				<!--if:doc.title!='Story'-->
+					<small>{{data:doc.title}}</small>
+				<!--/if-->
+			</h1>
+		</div>
+			
+		<!--ARTICLE-->
+		<div data-ng-repeat="row in ctrl.collection.coll">
+			<!--include:story/article-->
+		</div>
+		
+		<div class="text-center">
+			<div class="btn-group btn-group-xs" role="group" >
+				<button type="button" class="btn btn-default" title="Cargar todo" data-ng-click="ctrl.collection.getAll=true;ctrl.collection.getCollection()" data-ng-show="ctrl.collection.obtained < ctrl.collection.cant">Cargar todo</button>
+				<button type="button" class="btn btn-default" title="Cargar más" data-ng-click="ctrl.collection.getCollection()" data-ng-show="ctrl.collection.obtained < ctrl.collection.cant">Cargar más</button>
+			</div>
+			<br>
+			<br>
+		</div>
+				
+		<!--FILTER MODAL-->
+		<div class="modal fade" id="mdFilter">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Busca por palabras o frase específica" data-ng-model="ctrl.collection.fulltext">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" data-ng-click="ctrl.collection.getTotal()" data-dismiss="modal">Buscar</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript">
+		var instances = {story: ["collection"]};
+	</script>
+	<script type="text/javascript" src="js/story.js"></script>
+<!--/define:script-->
