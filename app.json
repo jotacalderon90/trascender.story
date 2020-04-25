@@ -8,7 +8,7 @@
 	},
 	"database": {
 		"url": "mongodb://127.0.0.1:27017",
-		"db": "trascender_story"
+		"db": "trascender"
 	},
 	"smtp": {
 		"enabled": false,
