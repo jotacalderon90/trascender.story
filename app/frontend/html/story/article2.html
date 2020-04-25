@@ -1,0 +1,22 @@
+<article>
+	<a href="/story/edit/{{row._id}}" class="btn btn-warning btn-xs pull-right" data-ng-show="ctrl.user.isAdmin()">
+		<i class="fa fa-pencil"></i>
+	</a>
+	<small class="pull-right">#{{$index+1}}</small>
+	<h2>{{row.title}}</h2>
+	<small title="{{row.fechat}}">{{row.resume}}. <span data-ng-show="row.year>0">&nbsp;{{row.fechat}}</span>&nbsp;{{row.fecha}}</small>
+	<div class="image">
+		<img src="{{row.img}}" class="img-background" />
+		<img src="{{row.img}}" class="img-center" />
+		<ul class="list-unstyled list-tags">
+			<li data-ng-repeat="tag in row.tag">
+				<a class="label label-success" href="/story/categoria/{{tag}}">{{tag}}</a>
+			</li>
+		</ul>
+		<ul class="list-unstyled list-fonts">
+			<li data-ng-repeat="font in row.font">
+				<a class="label label-primary" href="{{font}}" target="_blank">ver {{$index+1}}° referencia</a>
+			</li>
+		</ul>
+	</div>
+</article>
