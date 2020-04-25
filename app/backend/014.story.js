@@ -195,6 +195,26 @@ self.prototype.delete = async function(req,res){
 
 
 
+//@route('/api/story/:id/image')
+//@method(['post'])
+//@roles(['admin'])
+self.prototype.upload = async function(req,res){
+	try{
+		if (!req.files || Object.keys(req.files).length != 1) {
+			throw("no file");
+		}
+		let d = "/media/img/story/" + req.params.id + ".jpg";
+		await this.helper.upload_process(req.files.file, this.dir + "/app/frontend" + d);
+		await this.mongodb.updateOne("story",req.params.id,{$set: {img: d, thumb: d}});
+		
+		res.redirect("/story/edit/" + req.params.id);
+	}catch(e){
+		res.status(500).render("message",{title: "Error en el Servidor", message: e.toString(), error: 500, class: "danger", config: this.config});
+	}
+}
+
+
+
 //@route('/story/:id')
 //@method(['get'])
 self.prototype.render_other = async function(req,res,next){

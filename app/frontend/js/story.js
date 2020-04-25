@@ -213,38 +213,13 @@ app.controller("storyCtrl", function(trascender,$scope){
 					$(".input_tag").autocomplete({source: this.tag, select: ( event, ui )=>{
 						this.getDoc().tagbk = ui.item.value;
 					}});
+				},
+				getPostImage: function(){
+					return "/api/story/" + this.getDoc()._id + "/image";
 				}
 			});
 		},
 		resume: function(){
-			return new trascender({
-				increase: true,
-				scrolling: true,
-				baseurl: "/api/story",
-				start: function(){
-					let d = new Date();
-					this.query = {day: d.getDate(),month: d.getMonth() + 1};
-					this.options.sort = {year: -1, month: -1, day: -1, title: -1};
-					this.getTotal();
-				},
-				beforeGetTotal: function(){
-					this.obtained = 0;
-					this.coll = [];
-					return true;
-				},
-				afterGetTotal: function(){
-					this.getCollection();
-				},
-				afterGetCollection: function(){
-					if(this.obtained < this.cant){
-						this.getCollection();
-					}else{
-						$scope.$digest(function(){});
-					}
-				}
-			});
-		},
-		resume2: function(){
 			return new trascender({
 				increase: true,
 				scrolling: true,
