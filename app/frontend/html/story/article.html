@@ -1,4 +1,4 @@
-<article >
+<article>
 	<a href="/story/edit/{{row._id}}" class="btn btn-warning btn-xs pull-right" data-ng-show="ctrl.user.isAdmin()">
 		<i class="fa fa-pencil"></i>
 	</a>
@@ -8,7 +8,7 @@
 	<div class="image">
 		<img src="{{row.img}}" class="img-background" />
 		<img src="{{row.img}}" class="img-center" />
-		<ul class="list-unstyled list-tags">
+		<ul class="list-unstyled list-tags" id="ul_tag_{{row._id}}">
 			<li data-ng-repeat="tag in row.tag">
 				<a class="label label-success" href="/story/categoria/{{tag}}">{{tag}}</a>
 			</li>

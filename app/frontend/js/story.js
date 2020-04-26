@@ -1,5 +1,7 @@
 app.controller("storyCtrl", function(trascender,$scope){
 	
+	var self = this;
+	
 	if(typeof user!="undefined"){
 		this.user = user;
 		this.user.setAdmin(["admin"]);
@@ -70,6 +72,27 @@ app.controller("storyCtrl", function(trascender,$scope){
 		
 		return row;
 	}
+	trascender.prototype.setAdminAction = function(){
+		if(user.isAdmin()){
+			$(".list-tags").sortable({
+				stop: (event, ui)=>{
+					let p = $(event.target.children[0].parentNode);
+					let id = $(p).attr("id").replace("ul_tag_","");
+					this.tagChangeAfter(id);
+				}
+			});
+		}
+	}
+	trascender.prototype.tagChangeAfter = function(id){
+		let r = this.coll.filter((r)=>{return r._id==id})[0];
+		r.tag = [];
+		let li = ($("#ul_tag_" + id + " li"));
+		for(let i=0;i<li.length;i++){
+			r.tag.push(li[i].innerText);
+		}
+		self.documentUPDATETAG.select(r);
+		self.documentUPDATETAG.update();
+	}
 	
 	let i = {
 		collection: function(){
@@ -114,9 +137,11 @@ app.controller("storyCtrl", function(trascender,$scope){
 							this.getCollection();
 						}else{
 							$scope.$digest(function(){});
+							this.setAdminAction();
 						}
 					}else{
 						$scope.$digest(function(){});
+						this.setAdminAction();
 					}
 				},
 				getSortInfo: function(type){
@@ -183,6 +208,7 @@ app.controller("storyCtrl", function(trascender,$scope){
 					}
 				},
 				formatToServer: function(doc){
+					delete doc["$$hashKey"];
 					delete doc.tagbk;
 					delete doc.fontgbk;
 					return doc;
@@ -243,6 +269,7 @@ app.controller("storyCtrl", function(trascender,$scope){
 						this.getCollection();
 					}else{
 						$scope.$digest(function(){});
+						this.setAdminAction();
 					}
 				}
 			});
@@ -298,6 +325,17 @@ app.controller("storyCtrl", function(trascender,$scope){
 						color += letters[Math.floor(Math.random() * 16)];
 					}
 					return color;
+				}
+			});
+		},
+		documentUPDATETAG: function(){
+			return new trascender({
+				baseurl: "api/story",
+				formatToServer: function(doc){
+					delete doc["$$hashKey"];
+					delete doc.tagbk;
+					delete doc.fontgbk;
+					return doc;
 				}
 			});
 		}

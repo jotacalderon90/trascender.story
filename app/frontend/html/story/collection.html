@@ -34,7 +34,7 @@
 							</li>
 						</ul>
 					</div>
-					<a href="/story/new" class="btn btn-primary" title="nuevo" >
+					<a href="/story/new" class="btn btn-primary" title="nuevo" data-ng-show="ctrl.user.isAdmin()">
 						<i class="fa fa-plus"></i>
 					</a>
 				</div>
@@ -80,7 +80,7 @@
 
 <!--define:script-->
 	<script type="text/javascript">
-		var instances = {story: ["collection"]};
+		var instances = {story: ["collection","documentUPDATETAG"]};
 	</script>
 	<script type="text/javascript" src="js/story.js"></script>
 <!--/define:script-->
