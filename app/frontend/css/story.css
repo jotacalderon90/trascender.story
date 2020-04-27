@@ -1,6 +1,8 @@
 article{
 	margin-top: 25px;
 	margin-bottom: 25px;
+	max-width: 600px;
+	margin:auto;
 }
 h2{
 	font-size: 24px;
@@ -17,6 +19,7 @@ h2{
 	width: 100%;
 	filter: blur(10px);
 	position: absolute;
+	left: 0;
 	-webkit-filter: blur(5px);
 }
 .img-center{
