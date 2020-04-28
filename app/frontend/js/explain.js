@@ -410,10 +410,13 @@ app.controller("explainCtrl", function(trascender,$scope){
 		go: function(){
 			return new trascender({
 				start: function(){
-					$('#mdGo').on('shown.bs.modal', (e)=>{
-						this.myDiagram.commandHandler.zoomToFit();
+					this.textarea = "";
+					//$('#mdGo').on('shown.bs.modal', (e)=>{
+						//this.myDiagram.commandHandler.zoomToFit();
+					//});
+					$("#txt_data").blur(()=>{
+						this.init(this.getDATA(this.textarea));
 					});
-					//this.init(this.getDATA($("#txt_data").html()));
 				},
 				getDATA: function(STRING){
 					let r = [];
@@ -449,22 +452,25 @@ app.controller("explainCtrl", function(trascender,$scope){
 					}
 					return r;
 				},
-				init: function(DATA) {
-					var $ = go.GraphObject.make; // for conciseness in defining templates
-					this.myDiagram =
-					$(go.Diagram, "myDiagramDiv", // must be the ID or reference to div
-							{
-								"toolManager.hoverDelay": 100, // 100 milliseconds instead of the default 850
-								allowCopy: false,
-								layout: // create a TreeLayout for the family tree
-									$(go.TreeLayout, {
-										angle: 90,
-										nodeSpacing: 10,
-										layerSpacing: 40,
-										layerStyle: go.TreeLayout.LayerUniform
-									})
-							});
-							
+				init: function(DATA,R) {
+					try{
+						var $ = go.GraphObject.make; // for conciseness in defining templates
+						this.myDiagram =
+						$(go.Diagram, "myDiagramDiv", // must be the ID or reference to div
+								{
+									"toolManager.hoverDelay": 100, // 100 milliseconds instead of the default 850
+									allowCopy: false,
+									layout: // create a TreeLayout for the family tree
+										$(go.TreeLayout, {
+											angle: 90,
+											nodeSpacing: 10,
+											layerSpacing: 40,
+											layerStyle: go.TreeLayout.LayerUniform
+										})
+								});
+					}catch(e){
+						
+					}
 					// replace the default Node template in the nodeTemplateMap
 					this.myDiagram.nodeTemplate =
 						$(go.Node, "Auto", {
@@ -499,10 +505,11 @@ app.controller("explainCtrl", function(trascender,$scope){
 								strokeWidth: 3,
 								stroke: '#424242'
 							})); // the gray link shape
-					// here's the family data
-					var nodeDataArray = DATA;
 					// create the model for the family tree
-					this.myDiagram.model = new go.TreeModel(nodeDataArray);
+					this.myDiagram.model = new go.TreeModel(DATA);
+				},
+				push: function(DATA){
+					this.init(DATA);
 				}
 			});
 		}
