@@ -40,14 +40,8 @@ let trascender = async function(){
 			this.express = express();
 			this.express.use(bodyParser.json({limit: "50mb"})); 
 			this.express.use(bodyParser.urlencoded({extended: true}));
-			
-			if(this.config.properties.cookie_domain){
-				this.express.use(cookieParser({secret: this.config.properties.secret; domain:this.config.properties.cookie_domain}));
-			}else{
-				this.express.use(cookieParser());
-			}
-			
-			this.express.use(session({secret: (new Date()).toISOString(), resave: false, saveUninitialized: false}));
+			this.express.use(cookieParser());
+			this.express.use(session({secret: (new Date()).toISOString(), resave: false, saveUninitialized: false, domain: this.config.properties.cookie_domain}));
 			this.express.use(upload());
 			this.express.use(helmet());
 			
