@@ -7,7 +7,7 @@ const mongodb = new (require("../lib/mongodb"))({config: config});
 
 let create = async function(){
 	await mongodb.start();
-	let coll = await mongodb.find("story",{tag: {$in:["Historia de Chile"]}});
+	let coll = await mongodb.find("story",{tag: {$in:["Servicios"]}});
 	for(let i=0;i<coll.length;i++){
 		
 		/*for(let x=0;x<piramide.length;x++){
@@ -22,10 +22,13 @@ let create = async function(){
 		//coll[i].tag.splice(1,0,"Siglo XX");
 		//coll[i].tag.splice(1,1,"Siglo XXI");
 		
-		coll[i].tag_main = coll[i].tag[coll[i].tag.length-1];
+		//coll[i].tag_main = coll[i].tag[coll[i].tag.length-1];
+		/*
+		let pi = coll[i].tag.indexOf("Servicios");
+		coll[i].tag.splice(pi,0,"Telecomunicaciones");
 		
 		await mongodb.updateOne("story",coll[i]._id,coll[i]);
-		console.log(i + " actualizado");
+		console.log(i + " actualizado");*/
 	}
 }
 create();

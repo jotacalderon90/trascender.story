@@ -1,21 +1,66 @@
 [{
-	"name": "story",
-	"schema": {}
-},
-{
 	"name": "user",
+	"label": "Usuarios",
 	"schema": {
 		"email": "",
 		"password": ""
-	},
-	"output": {
-		"email": "true",
-		"roles": true
 	},
 	"service": {
 		"create": {
 			"method": "post",
 			"uri": "/api/user"
 		}
+	},
+	"output": {
+		"email": true,
+		"nickname": true,
+		"roles": true,
+		"notification": "",
+		"ip": ""
+	},
+	"sort": {
+		"email": 1
 	}
+}, {
+	"name": "message",
+	"schema": {
+		"subject": "",
+		"email": "",
+		"message": ""
+	}
+}, {
+	"name": "user_active",
+	"schema": {
+		"email": ""
+	}
+}, {
+	"name": "story",
+	"label": "Historia",
+	"schema": {
+		"year": 0,
+		"month": 0,
+		"day": 0,
+		"title": "",
+		"resume": "",
+		"img": "",
+		"font": [],
+		"tag": [],
+		"audio": "",
+		"latitud": 0,
+		"longitud": 0
+	},
+	"output": {
+		"year": true,
+		"month": true,
+		"day": true,
+		"title": true,
+		"tag": true
+	},
+	"sort": {
+		"year": -1,
+		"month": -1,
+		"day": -1,
+		"title": 1
+	},
+	"public": true
 }]
