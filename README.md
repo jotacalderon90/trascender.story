@@ -4,6 +4,8 @@
 
 CMS para almacenar registros históricos para posteriormente visualizarlos en lineas de tiempo, mapas geográficos y mapas concetuales
 
+[Revisa el sitio web](https://story.jotace.cl "Historia")
+
 ### DESCARGAR
 
 ```sh
