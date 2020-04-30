@@ -24,6 +24,16 @@ var self = function(a){
 
 
 
+self.prototype.cookie = function(res,cookie){
+	if(this.config.properties.cookie_domain){
+		res.cookie("Authorization", cookie, { domain: this.config.properties.cookie_domain, path: "/", secure: true });
+	}else{
+		res.cookie("Authorization",cookie);
+	}
+}
+
+
+
 //@route('/user')
 //@method(['get','post'])
 self.prototype.create = async function(req,res){
@@ -111,7 +121,7 @@ self.prototype.login = async function(req,res){
 						throw("Los datos ingresados no corresponden");
 					}else{
 						let cookie = this.auth.encode(rows[0]);
-						res.cookie("Authorization",cookie);
+						this.cookie(res,cookie);
 						let active = await this.mongodb.find("user_active",{user_id: rows[0]._id.toString()});
 						if(active.length!=1){
 							await this.mongodb.insertOne("user_active",{user_id: rows[0]._id.toString(), email: rows[0].email, date: new Date()});
@@ -348,7 +358,7 @@ self.prototype.google_login = async function(req,res){
 				await this.mongodb.updateOne("user",row._id,updated);
 			}
 			let cookie = this.auth.encode(row);
-			res.cookie("Authorization",cookie);
+			this.cookie(res,cookie);
 			let active = await this.mongodb.find("user_active",{user_id: row._id.toString()});
 			if(active.length!=1){
 				await this.mongodb.insertOne("user_active",{user_id: row._id.toString(), email: row.email, date: new Date()});
