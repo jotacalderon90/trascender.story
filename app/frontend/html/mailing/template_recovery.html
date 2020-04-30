@@ -1,0 +1,29 @@
+<!--use:_views/m.mailing-->
+
+<!--define:main-->
+<table style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:20px;">
+	<tr>
+		<td>
+			<p style="color:#202020;font-family:Helvetica;font-size:18px;line-height:150%;">
+				Hola
+			</p>
+			<p style="color:#202020;font-family:Helvetica;font-size:18px;line-height:150%;">
+				Al parecer olvidaste tu contraseña.
+			</p>
+			<hr>
+			<p style="color:#202020;font-family:Helvetica;font-size:18px;line-height:150%;">
+				Si nunca solicitaste recuperar tu contraseña, por favor ignora este mensaje.
+				<br>
+				En caso contrario, tendras que hacer clic <a href="{{data:doc.hash}}" target="_blank">aqui</a> para reestablecer tu contraseña.
+			</p>
+			<hr>
+			<p style="color:#202020;font-family:Helvetica;font-size:18px;line-height:150%;">
+				Si por alguna razón el enlace anterior no funciona, copia y pega el siguiente URL en la barra de direcciones de tu navegador:
+			<p>
+			<p>
+				{{data:doc.hash}}
+			</p>
+		</td>
+	</tr>
+</table>
+<!--/define:main-->

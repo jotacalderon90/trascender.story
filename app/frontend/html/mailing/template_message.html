@@ -1,0 +1,25 @@
+<!--use:_views/m.mailing-->
+
+<!--define:main-->
+<table style="width:100%;border-spacing:0;border-collapse:collapse;margin-top:20px;">
+	<tr>
+		<td>
+			<p style="font-size:14px;line-height:20px;font-family:'HelveticaNeue-Light','Helvetica Neue Light',Helvetica,Arial,sans-serif;color:#898989">
+				Hemos recibido un mensaje con la siguiente información:
+			</p>
+			<hr>
+			<p style="font-size:14px;line-height:20px;font-family:'HelveticaNeue-Light','Helvetica Neue Light',Helvetica,Arial,sans-serif;color:#898989">
+				<strong>Correo: </strong><span>{{data:doc.email}}</span>
+				<br>
+				<strong>Fecha: </strong><span>{{data:doc.created}}</span>
+				<br>
+				<strong>Mensaje: </strong><span>{{data:doc.message}}</span>
+			</p>
+			<hr>
+			<p style="font-size:14px;line-height:20px;font-family:'HelveticaNeue-Light','Helvetica Neue Light',Helvetica,Arial,sans-serif;color:#898989">
+				Pronto nos contactaremos con usted para darle una respuesta a su mensaje, muchas gracias.
+			</p>
+		</td>
+	</tr>
+</table>
+<!--/define:main-->
