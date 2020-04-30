@@ -33,21 +33,20 @@ let trascender = async function(){
 		//configurar estandar de aplicacion web/nodejs/express/trascender
 		if(true){
 			
-			this.dir		= __dirname;
-			this.config		= JSON.parse(fs.readFileSync("./app.json","utf8"));
-			
 			console.log(new Date() + " == configurando aplicacion");
 			this.express = express();
 			this.express.use(bodyParser.json({limit: "50mb"})); 
 			this.express.use(bodyParser.urlencoded({extended: true}));
 			this.express.use(cookieParser());
-			this.express.use(session({secret: this.config.properties.secret, resave: false, saveUninitialized: false, domain: this.config.properties.cookie_domain}));
+			this.express.use(session({secret: (new Date()).toISOString(), resave: false, saveUninitialized: false}));
 			this.express.use(upload());
 			this.express.use(helmet());
 			
 			process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 			this.process = process;
 			
+			this.dir		= __dirname;
+			this.config		= JSON.parse(fs.readFileSync("./app.json","utf8"));
 			this.config.properties.views = "/app/frontend/html/";
 			
 			this.server		= http.Server(this.express);
