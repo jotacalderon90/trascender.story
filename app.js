@@ -42,7 +42,7 @@ let trascender = async function(){
 			this.express.use(bodyParser.urlencoded({extended: true}));
 			
 			if(this.config.properties.cookie_domain){
-				this.express.use(cookieParser({domain:this.config.properties.cookie_domain}));
+				this.express.use(cookieParser({secret: this.config.properties.secret; domain:this.config.properties.cookie_domain}));
 			}else{
 				this.express.use(cookieParser());
 			}
