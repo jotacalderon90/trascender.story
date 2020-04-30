@@ -22,8 +22,9 @@ $ bower install
 ### LEVANTAR APP CON NODE O PREFERIBLEMENTE NODEMON
 ```js
 node app
+nodemon app --ignore app/frontend
 ```
-Si todo va bien, el sistema se levantará en el puerto 80. Si agregas nodemon, agilizarás aún más el proceso de desarrollo. Suerte y buenos códigos ;)
+Si todo va bien, el sistema se levantará en el puerto 80. Suerte y buenos códigos ;)
 
 Cualquier comentario favor informar
 
