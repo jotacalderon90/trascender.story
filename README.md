@@ -28,6 +28,14 @@ Si todo va bien, el sistema se levantará en el puerto 80. Suerte y buenos códi
 
 Cualquier comentario favor informar
 
+
+### CONSIDERACIONES
+El sitema esta basado en trascender y para realizar configuraciones como puertos, smtp y otros, acceder a:
+
+http://localhost/config
+
+En caso de subir a un ambiente de produccción debe presionar el ícono trash para eliminar esa seccion
+
 License
 ----
 
