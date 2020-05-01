@@ -26,19 +26,6 @@
 		<script src='https://www.google.com/recaptcha/api.js'>
 		</script>
 		<!--/if-->
-		<!--if:doc.config.public.analytics && doc.config.public.analytics!=""-->
-		<!--Analytics-->
-		<script async src="https://www.googletagmanager.com/gtag/js?id={{data:doc.config.public.analytics}}">
-		</script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		  gtag('config', '{{data:doc.config.public.analytics}}');
-		</script>
-		<!--/if-->
-		<!--Captcha-->
-		<link rel="manifest" href="/manifest.json?id=index"/>
 		
 	</head>
 	<body>

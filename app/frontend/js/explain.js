@@ -18,7 +18,8 @@ app.controller("explainCtrl", function(trascender,$scope){
 				$("#mdCog").modal("toggle");//C
 				break;
 			case 71:
-				$("#mdGo").modal("toggle");//G
+				$("#myDiagramDiv").fadeToggle();
+				//$("#mdGo").modal("toggle");//G
 				break;
 			case 77:
 				$("#mdMap").modal("toggle");//M
@@ -307,6 +308,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 				},
 				refresh: function(){
 					this.moveTimeline(this.coll[this.index]);
+					this.refreshCONCEPTUAL(this.index);
 					self.document.get(this.coll[this.index]._id);
 				},
 				moveTimeline: function(d){
@@ -314,6 +316,13 @@ app.controller("explainCtrl", function(trascender,$scope){
 					let s = o.offset().top;
 					
 					$("#dvTimeline").animate({scrollTop: s + $("#dvTimeline").scrollTop()}, 1000);
+				},
+				refreshCONCEPTUAL: function(index){
+					let c = [];
+					for(let i=0;i<=index;i++){
+						c.push(this.coll[i]);
+					}
+					this.setConceptualMap(c);
 				},
 				setConceptualMap: function(coll){
 					let tags = [];
@@ -363,8 +372,8 @@ app.controller("explainCtrl", function(trascender,$scope){
 						
 					}
 					
-					console.log(tags);
 					self.go.init(tags);
+					
 				}
 			});
 		},
@@ -411,9 +420,9 @@ app.controller("explainCtrl", function(trascender,$scope){
 			return new trascender({
 				start: function(){
 					this.textarea = "";
-					//$('#mdGo').on('shown.bs.modal', (e)=>{
-						//this.myDiagram.commandHandler.zoomToFit();
-					//});
+					$('#mdGo').on('shown.bs.modal', (e)=>{
+						this.myDiagram.commandHandler.zoomToFit();
+					});
 					$("#txt_data").blur(()=>{
 						this.init(this.getDATA(this.textarea));
 					});
@@ -519,5 +528,4 @@ app.controller("explainCtrl", function(trascender,$scope){
 		this[instances.explain[instance]] = new i[instances.explain[instance]]();
 	}
 	
-	setTimeout(function(){$scope.$digest(function(){});}, 500);
 });
