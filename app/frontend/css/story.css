@@ -57,3 +57,8 @@ article .list-admin{
 	top: 0px;
 	text-align: left;
 }
+article .label-map{
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+}
