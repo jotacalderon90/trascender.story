@@ -11,22 +11,19 @@ app.controller("explainCtrl", function(trascender,$scope){
 	
 	$(document).keydown((e)=>{
 		switch(e.keyCode){
-			case 66:
-				$("#map").fadeToggle();//b
-				break;
-			case 67:
-				$("#mdCog").modal("toggle");//C
-				break;
 			case 71:
-				$("#myDiagramDiv").fadeToggle();
-				//$("#mdGo").modal("toggle");//G
+				$("#dvGO").fadeToggle();//G
 				break;
 			case 77:
-				$("#mdMap").modal("toggle");//M
+				$("#dvMap").fadeToggle();//M
 				break;
-			/*case 84:
-				$("#dvTimeline").fadeToggle();
+			case 83:
+				$("#mdCog").modal("toggle");//S
 				break;
+			case 84:
+				$("#mdTextarea").modal("toggle");//T
+				break;
+			/*
 			case 123:
 				alert("nos vemos de otra forma ;)");
 				break;
@@ -44,7 +41,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 					
 					let lat = -33.59875863395195;
 					let lng = -70.7080078125;
-					this.map = L.map("map").setView([lat, lng],3);
+					this.map = L.map("dvMap").setView([lat, lng],3);
 					let mapLink = '<a href="http://www.esri.com/">Esri</a>';
 					let wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';	
 					L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}g").addTo(this.map);	
@@ -132,13 +129,13 @@ app.controller("explainCtrl", function(trascender,$scope){
 					$('#mdCog').on('show.bs.modal', (e)=>{$('#dvTimeline').fadeOut();});
 					$('#mdCog').on('hide.bs.modal', (e)=>{if(this.started){$('#dvTimeline').fadeIn();}});
 					
-					$('#mdMap').on('show.bs.modal', (e)=>{$('#dvTimeline').fadeOut();});
-					$('#mdMap').on('hide.bs.modal', (e)=>{if(this.started){$('#dvTimeline').fadeIn();}});
+					$('#mdTextarea').on('show.bs.modal', (e)=>{$('#dvTimeline').fadeOut();});
+					$('#mdTextarea').on('hide.bs.modal', (e)=>{if(this.started){$('#dvTimeline').fadeIn();}});
 					
 					$('#mdGo').on('show.bs.modal', (e)=>{$('#dvTimeline').fadeOut();});
 					$('#mdGo').on('hide.bs.modal', (e)=>{if(this.started){$('#dvTimeline').fadeIn();}});
 					
-					$('#mdMap').delegate('textarea', 'keydown', function(e) {
+					$('#mdTextarea').delegate('textarea', 'keydown', function(e) {
 						var keyCode = e.keyCode || e.which;
 						if (keyCode == 9) {
 							e.preventDefault();
@@ -413,6 +410,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 				setLoc: function(){
 					$('#mdForm').modal('hide');
 					$('.leaflet-draw-draw-marker').fadeIn();
+					$('.leaflet-draw-draw-marker').html("M");
 				}
 			});
 		},
@@ -465,7 +463,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 					try{
 						var $ = go.GraphObject.make; // for conciseness in defining templates
 						this.myDiagram =
-						$(go.Diagram, "myDiagramDiv", // must be the ID or reference to div
+						$(go.Diagram, "dvGO", // must be the ID or reference to div
 								{
 									"toolManager.hoverDelay": 100, // 100 milliseconds instead of the default 850
 									allowCopy: false,

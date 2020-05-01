@@ -341,6 +341,186 @@ app.controller("storyCtrl", function(trascender,$scope){
 					return doc;
 				}
 			});
+		},
+		map: function(){
+			return new trascender({
+				start: async function(){
+					
+					await self.user.checkUser();
+					
+					let lat = -33.59875863395195;
+					let lng = -70.7080078125;
+					this.map = L.map("map").setView([lat, lng],3);
+					let mapLink = '<a href="http://www.esri.com/">Esri</a>';
+					let wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';	
+					L.tileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}g").addTo(this.map);	
+					
+					if(self.user.isAdmin()){
+						let drawnItems = L.featureGroup().addTo(this.map);
+						L.control.layers({}, { 'drawlayer': drawnItems }, { position: 'topleft', collapsed: false }).addTo(this.map);
+						this.map.addControl(new L.Control.Draw({
+							edit: {
+								featureGroup: drawnItems,
+								poly: {
+									allowIntersection: false
+								}
+							},
+							draw: {
+								polygon: {
+									allowIntersection: false,
+									showArea: true
+								}
+							}
+						}));
+						this.map.on(L.Draw.Event.CREATED, (event)=>{this.onDragMarker(event);});
+						
+						$(".leaflet-control-layers-toggle,"+
+						".leaflet-draw-draw-polyline,"+
+						".leaflet-draw-draw-polygon,"+
+						".leaflet-draw-draw-rectangle,"+
+						".leaflet-draw-draw-circle,"+
+						".leaflet-draw-draw-marker,"+
+						".leaflet-draw-draw-circlemarker,"+
+						".leaflet-draw-edit-edit,"+
+						".leaflet-draw-edit-remove").css("display","none");
+						
+					}
+					$(".leaflet-control-zoom").css("display","none");
+					$(".leaflet-control-layers").css("display","none");
+					
+				},
+				onDragMarker: function(event){
+					let layer = event.layer;
+					self.document.getDoc().CENTER = this.map.getCenter();
+					self.document.getDoc().ZOOM = this.map.getZoom();
+					self.document.getDoc().LNG = layer.toGeoJSON().geometry.coordinates[0];
+					self.document.getDoc().LAT = layer.toGeoJSON().geometry.coordinates[1];
+					$('#mdForm').modal('show');
+					$scope.$digest(function(){});
+				},
+				setMarker: function(doc){
+					this.removeMarker();
+					if(doc && doc.LAT && doc.LNG){
+						this.marker = L.marker([doc.LAT, doc.LNG]).addTo(this.map);
+						this.map.setView([doc.LAT, doc.LNG],3/*((doc.zoom)?doc.zoom:2)*/, {animate: true, pan: {duration: 1 }});
+					}
+				},
+				removeMarker: function(){
+					try{
+						if(this.marker!=undefined){
+							this.map.removeLayer(this.marker);
+						}
+					}catch(e){
+						
+					}
+				}
+			});
+		},
+		go: function(){
+			return new trascender({
+				start: function(){
+					this.textarea = "";
+					$('#mdGo').on('shown.bs.modal', (e)=>{
+						this.myDiagram.commandHandler.zoomToFit();
+					});
+					$("#txt_data").blur(()=>{
+						this.init(this.getDATA(this.textarea));
+					});
+				},
+				getDATA: function(STRING){
+					let r = [];
+					let c = STRING;
+					c = c.split("\n");
+					let parent;
+					for(let i=0;i<c.length;i++){
+						if(c[i].trim()!=""){
+							let d = {};
+							d.key = i;
+							d.name = c[i].trim();
+							d.name = (d.name.indexOf(",")==-1)?d.name:d.name.split(",").join("\n");
+							
+							let ct = c[i].split("\t").length-1;
+							
+							if(ct==0){
+								parent = i;
+							}else{
+								d.parent = null;
+								let p = 1;
+								while(d.parent==null){
+									let ct2 = c[i-p].split("\t").length-1;
+									let anterior = r[r.length-p];
+									if(ct>ct2){
+										d.parent = anterior.key;
+									}else{
+										p++;
+									}
+								}
+							}
+							r.push(d);
+						}
+					}
+					return r;
+				},
+				init: function(DATA,R) {
+					try{
+						var $ = go.GraphObject.make; // for conciseness in defining templates
+						this.myDiagram =
+						$(go.Diagram, "myDiagramDiv", // must be the ID or reference to div
+								{
+									"toolManager.hoverDelay": 100, // 100 milliseconds instead of the default 850
+									allowCopy: false,
+									layout: // create a TreeLayout for the family tree
+										$(go.TreeLayout, {
+											angle: 90,
+											nodeSpacing: 10,
+											layerSpacing: 40,
+											layerStyle: go.TreeLayout.LayerUniform
+										})
+								});
+					}catch(e){
+						
+					}
+					// replace the default Node template in the nodeTemplateMap
+					this.myDiagram.nodeTemplate =
+						$(go.Node, "Auto", {
+								deletable: false
+							},
+							new go.Binding("text", "name"),
+							$(go.Shape, "Rectangle", {
+									fill: "lightgray",
+									stroke: null,
+									strokeWidth: 0,
+									stretch: go.GraphObject.Fill,
+									alignment: go.Spot.Center
+								},
+								new go.Binding("fill", "gender", '#90CAF9')),
+							$(go.TextBlock, {
+									font: "700 12px Droid Serif, sans-serif",
+									textAlign: "center",
+									margin: 10,
+									maxSize: new go.Size(80, NaN)
+								},
+								new go.Binding("text", "name"))
+						);
+					// define the Link template
+					this.myDiagram.linkTemplate =
+						$(go.Link, // the whole link panel
+							{
+								routing: go.Link.Orthogonal,
+								corner: 5,
+								selectable: false
+							},
+							$(go.Shape, {
+								strokeWidth: 3,
+								stroke: '#424242'
+							})); // the gray link shape
+					// create the model for the family tree
+					this.myDiagram.model = new go.TreeModel(DATA);
+				},
+				push: function(DATA){
+					this.init(DATA);
+				}
+			});
 		}
 	}
 	
