@@ -7,31 +7,6 @@ app.controller("explainCtrl", function(trascender,$scope){
 		this.user.setAdmin(["admin"]);
 	}
 	
-	$("#background,#loading").fadeIn();
-	
-	$(document).keydown((e)=>{
-		switch(e.keyCode){
-			case 71:
-				$("#dvGO").fadeToggle();//G
-				break;
-			case 77:
-				$("#dvMap").fadeToggle();//M
-				break;
-			case 83:
-				$("#mdCog").modal("toggle");//S
-				break;
-			case 84:
-				$("#mdTextarea").modal("toggle");//T
-				break;
-			/*
-			case 123:
-				alert("nos vemos de otra forma ;)");
-				break;
-			default:
-				console.log(e.keyCode);*/
-		}
-	});
-	
 	let i = {
 		map: function(){
 			return new trascender({
@@ -113,6 +88,32 @@ app.controller("explainCtrl", function(trascender,$scope){
 				baseurl: "/api/story",
 				months:  ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],
 				start: function(){
+					
+					$("#background,#loading").fadeIn();
+					
+					$(document).keydown((e)=>{
+						switch(e.keyCode){
+							case 71:
+								$("#dvGO").fadeToggle();//G
+								break;
+							case 77:
+								$("#dvMap").fadeToggle();//M
+								break;
+							case 83:
+								$("#mdCog").modal("toggle");//S
+								break;
+							case 84:
+								$("#mdTextarea").modal("toggle");//T
+								break;
+							/*
+							case 123:
+								alert("nos vemos de otra forma ;)");
+								break;
+							default:
+								console.log(e.keyCode);*/
+						}
+					});
+					
 					this.query.tag = "";
 					this.getTag();
 					this.listTAG = [];

@@ -1,20 +1,23 @@
+dt{
+	text-align: justify;
+}
 article{
 	margin-top: 25px;
 	margin-bottom: 25px;
 	max-width: 600px;
 	margin:auto;
 }
-h2{
+article h2{
 	font-size: 24px;
 	margin:0px;
 }
-.image{
+article .image{
 	height: 300px;
 	width: 100%;
 	position: relative;
 	margin-bottom: 10px;
 }
-.img-background{
+article .img-background{
 	height: 100%;
 	width: 100%;
 	filter: blur(10px);
@@ -22,7 +25,7 @@ h2{
 	left: 0;
 	-webkit-filter: blur(5px);
 }
-.img-center{
+article .img-center{
 	height: 100%;
 	max-width: 100%;
 	position: absolute;
@@ -32,19 +35,25 @@ h2{
 	right: 0;
 	-webkit-filter: blur(0px);
 }
-.label{
+article .label{
 	margin-right: 1px;
 	font-size: 9px;
 }
-.list-tags{
+article .list-tags{
 	position: absolute;
 	right: 0px;
 	top: 0px;
 	text-align: right;
 }
-.list-fonts{
+article .list-fonts{
 	position: absolute;
 	right: 0px;
 	bottom: 0px;
 	text-align: right;
+}
+article .list-admin{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	text-align: left;
 }

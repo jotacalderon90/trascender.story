@@ -5,7 +5,13 @@
 <!--/define:title-->
 
 <!--define:css-->
-<link rel="stylesheet" href="css/story.css" />
+	<link rel="stylesheet" href="css/story.css" />
+	<link rel="stylesheet" href="css/story.timeline.css" />
+	<style>
+		.timeline-event-content{
+			height: auto;
+		}
+	</style>
 <!--/define:css-->
 
 <!--define:main-->
@@ -48,8 +54,17 @@
 		</div>
 			
 		<!--ARTICLE-->
-		<div data-ng-repeat="row in ctrl.collection.coll">
-			<!--include:story/article-->
+		
+		<div id="dvTimeline">
+			<div class="bk"></div>
+			<div id="timeline" class="timeline-container">
+				<div class="timeline-wrapper">
+					<dl class="timeline-series" data-ng-repeat="row in ctrl.collection.coll">
+						<!--include:story/article-->
+					</dl>
+				</div>
+				<div class="timeline-wrapper timeline-wrapper-last"></div>
+			</div>
 		</div>
 		
 		<div class="text-center">

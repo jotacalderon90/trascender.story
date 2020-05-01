@@ -143,6 +143,12 @@ app.controller("storyCtrl", function(trascender,$scope){
 						$scope.$digest(function(){});
 						this.setAdminAction();
 					}
+					
+					
+					if(!this.timeliner_started){
+						$.timeliner({});
+						this.timeliner_started = true;
+					}
 				},
 				getSortInfo: function(type){
 					switch(type){
@@ -273,6 +279,7 @@ app.controller("storyCtrl", function(trascender,$scope){
 					}else{
 						$scope.$digest(function(){});
 						this.setAdminAction();
+						$.timeliner({});
 					}
 				}
 			});

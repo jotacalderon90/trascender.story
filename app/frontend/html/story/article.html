@@ -1,22 +1,34 @@
-<article>
-	<a href="/story/edit/{{row._id}}" class="btn btn-warning btn-xs pull-right" data-ng-show="ctrl.user.isAdmin()">
-		<i class="fa fa-pencil"></i>
-	</a>
-	<small class="pull-right">#{{$index+1}}</small>
-	<h2>{{row.title}}</h2>
-	<small title="{{row.fechat}}">{{row.resume}}. <span data-ng-show="row.year>0">&nbsp;{{row.fechat}}</span>&nbsp;{{row.fecha}}</small>
-	<div class="image">
-		<img src="{{row.img}}" class="img-background" />
-		<img src="{{row.img}}" class="img-center" />
-		<ul class="list-unstyled list-tags" id="ul_tag_{{row._id}}">
-			<li data-ng-repeat="tag in row.tag">
-				<a class="label label-success" href="/story/categoria/{{tag}}">{{tag}}</a>
-			</li>
-		</ul>
-		<ul class="list-unstyled list-fonts">
-			<li data-ng-repeat="font in row.font">
-				<a class="label label-primary" href="{{font}}" target="_blank">ver {{$index+1}}° referencia</a>
-			</li>
-		</ul>
-	</div>
-</article>
+<dt id="{{row._id}}" class="timeline-event start-open">
+	<a>{{row.title}}</a>
+</dt>
+<dd class="timeline-event-content" id="{{row._id}}EX">
+	<article>
+		<h3>{{row.fechat}}</h3>
+		<div class="image">
+			<img src="{{row.img}}" class="img-background" />
+			<img src="{{row.img}}" class="img-center" title="{{row.resume}}. {{row.fecha}}" data-ng-click="ctrl.collection.setDOC(row)"/>
+			<ul class="list-unstyled list-tags" id="ul_tag_{{row._id}}">
+				<li data-ng-repeat="tag in row.tag">
+					<a class="label label-success" href="/story/categoria/{{tag}}">{{tag}}</a>
+				</li>
+			</ul>
+			<ul class="list-unstyled list-fonts">
+				<li data-ng-repeat="font in row.font">
+					<a class="label label-primary" href="{{font}}" target="_blank">ver {{$index+1}}° referencia</a>
+				</li>
+			</ul>
+			<ul class="list-unstyled list-admin" data-ng-show="ctrl.user.isAdmin()" >
+				<li>
+					<a class="label label-warning" href="/story/edit/{{row._id}}" target="_blank">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</li>
+				<li>
+					<a class="label label-warning" data-toggle="modal" data-target="#mdForm">
+						<i class="fa fa-map"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</article>
+</dd>
