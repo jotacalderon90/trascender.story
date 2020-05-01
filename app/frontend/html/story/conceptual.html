@@ -1,0 +1,80 @@
+<!--use:_views/m.full-->
+
+<!--define:title-->
+	Conceptual
+<!--/define:title-->
+
+<!--define:css-->
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+	<link rel="stylesheet" href="css/timeline.css" />
+	<link rel="stylesheet" href="css/story.conceptual.css" />
+	
+<!--/define:css-->
+
+<!--define:head-->
+	<script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+<!--/define:head-->
+
+<!--define:main-->
+	<canvas id="matrix"></canvas>
+	<div id="background"></div>
+	<div id="loading">
+		<i class="fa fa-spin fa-spinner"></i>
+	</div>
+	<div id="full" data-ng-app="myApp" data-ng-controller="explainCtrl as ctrl">
+		
+		<div id="dvTimeline">
+			<div class="bk"></div>
+			<div id="timeline" class="timeline-container">
+				<div class="timeline-wrapper" data-ng-repeat="year in ctrl.collection.years">
+					<h2 class="timeline-time"><span>{{year.label}}</span></h2>
+					<dl class="timeline-series" data-ng-repeat="data in year.data">
+						<dt id="{{data._id}}" class="timeline-event start-open">
+							<a>{{data.title}}</a>
+						</dt>
+						<dd class="timeline-event-content" id="{{data._id}}EX">
+							<h3>{{data.fechat}}</h3>
+							<img data-ng-src="{{data.img}}" alt="{{data.resume}}. {{data.fecha}}" title="{{data.resume}}. {{data.fecha}}" data-ng-click="ctrl.collection.setDOC(data)"/>
+							<!--<small>{{data.resume}}.</small>-->
+							<ul class="list-unstyled">
+								<li data-ng-repeat="tag in data.tag">
+									<a class="label label-success" href="/explain?tag={{tag}}" >{{tag}}</a>
+								</li>
+								<li data-ng-repeat="font in data.font">
+									<a class="label label-primary" href="{{font}}" target="_blank">ver {{$index+1}}° referencia</a>
+								</li>
+								<li data-ng-show="ctrl.user.isAdmin()">
+									<a class="label label-warning" data-toggle="modal" data-target="#mdForm">
+										<i class="fa fa-pencil"></i>
+									</a>
+								</li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+				<div class="timeline-wrapper timeline-wrapper-last"></div>
+			</div>
+		</div>
+		
+		<div id="myDiagramDiv"></div>
+		
+		<div id="map"></div>
+		
+		<!--include:story/mdCog-->
+		<!--include:story/mdForm-->
+		<!--include:story/mdMap-->
+		<!--include:story/mdGo-->
+		
+	</div>
+<!--/define:main-->
+
+<!--define:script-->
+	<script type="text/javascript" src="js/lib/background.js"></script>
+	<script type="text/javascript" src="js/lib/timeliner-2.31/js/timeliner.js"></script>
+	<script type="text/javascript" src="js/lib/go-2.1/release/go.js"></script>
+	<script type="text/javascript">
+		var instances = {explain: ["map","collection","document","go"]};
+	</script>
+	<script type="text/javascript" src="js/explain2.js"></script>
+<!--/define:script-->

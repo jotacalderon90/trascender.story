@@ -12,33 +12,6 @@ let self = function(a){
 
 
 
-self.prototype.render_view = function(req,res,next){
-	let view = "explain/" + ((req.params.id)?req.params.id:"index");
-	if(this.helper.exist(view)){
-		res.render(view);
-	}else{
-		return next();
-	}
-}
-
-
-
-//@route('/explain')
-//@method(['get'])
-self.prototype.render_index = function(req,res,next){
-	this.render_view(req,res,next);
-}
-
-
-
-//@route('/explain/:id')
-//@method(['get'])
-self.prototype.render_other = function(req,res,next){
-	this.render_view(req,res,next);
-}
-
-
-
 //@route('/api/map/collection')
 //@method(['get'])
 self.prototype.collection = async function(req,res){

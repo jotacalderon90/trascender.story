@@ -180,30 +180,33 @@ app.controller("storyCtrl", function(trascender,$scope){
 				beforeCreate: function(doc){
 					return confirm("Confirme creación del documento");
 				},
-				afterCreate: function(s){
+				afterCreate: function(s,x){
 					if(s){
 						location.href = "/story";
 					}else{
+						alert(x.json.error);
 						$scope.$digest(function(){});
 					}
 				},
 				beforeUpdate: function(doc){
 					return confirm("Confirme actualización del documento");
 				},
-				afterUpdate: function(s){
+				afterUpdate: function(s,x){
 					if(s){
 						location.reload();
 					}else{
+						alert(x.json.error);
 						$scope.$digest(function(){});
 					}
 				},
 				beforeDelete: function(){
 					return confirm("Confirme eliminación del documento");
 				},
-				afterDelete: function(s){
+				afterDelete: function(s,x){
 					if(s){
 						location.href = "/story";
 					}else{
+						alert(x.json.error);
 						$scope.$digest(function(){});
 					}
 				},
@@ -358,6 +361,6 @@ app.controller("storyCtrl", function(trascender,$scope){
 //busqueda de texto con índice
 //db.story.find({$text:{$search:"manuel"}})
 //indice de todos
-//db.collection.ensureIndex({"$**": "text" })
+//db.story.ensureIndex({"$**": "text" })
 //obtener elementos del array
 //db.story.distinct("tag")

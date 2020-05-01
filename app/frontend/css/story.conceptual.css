@@ -1,0 +1,144 @@
+html,body{
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+#full{
+	position: absolute;
+	top: 0;
+	left: 0;
+	
+	width: 100%;
+	height: 100%;
+	
+	z-index: 2;
+	opacity: 0.95;
+	
+	background: url("https://static.vecteezy.com/system/resources/previews/000/544/006/non_2x/futuristic-digital-transformation-abstract-technology-blue-background-artificial-intelligence-and-big-data-concept-business-growth-computer-and-hacking-cyber-security-theme-vector-illustration.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/********/
+/*LOADER*/
+#background{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: black;
+	z-index: 1000;
+	opacity: 0.5;
+	display: none;
+}
+#loading{
+	position: fixed;
+	z-index: 2000;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+	display: none;
+}
+#loading i{
+	font-size: 100px;
+}
+
+/******/
+/*MAPA*/
+#map{
+	width: 300px;
+	height: 300px;
+	right: 0;
+	position: absolute;
+	z-index: 3;
+	background: black;
+}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+	-moz-animation: fadein 2s; /* Firefox < 16 */
+	-ms-animation: fadein 2s; /* Internet Explorer */
+	-o-animation: fadein 2s; /* Opera < 12.1 */
+	animation: fadein 2s;
+}
+@keyframes fadein {
+	from { opacity: 0;}
+	to   { opacity: 1;}
+}
+		
+/************/
+/*MAPA CONCEPTUAL*/
+#myDiagramDiv{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 95%;
+	height: 100%;
+	z-index: 4;
+	overflow: hidden;
+}
+#myDiagramDiv div{
+	overflow: hidden!important;
+}
+
+/***********/
+/*BUSCADOR*/
+		
+#mdCog .modal-content {
+	background: black;
+	opacity: 0.5;
+}
+#mdCog .modal-content .form-control{
+	background: inherit;
+	color: white;
+}
+		
+/*AUTOCOMPLETAR*/
+.ui-autocomplete{
+	z-index: 9999;
+}
+.ui-widget-content{
+	background: black;
+	opacity: 0.5;
+	color: white;
+}
+		
+/*********/
+/*TIMELINE*/
+#dvTimeline{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 30%;
+	height: 100%;
+	z-index: 5;
+	display: none;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+#timeline{
+	position: absolute;
+	width: 100%;
+	z-index: 5;
+	word-wrap: break-word;
+}
+.timeline-series dt{
+	padding-top: 100px;
+}
+.timeline-wrapper-last{
+	height: 1000px;
+}
+.bk{
+	position: fixed;
+	width: 30%;
+	height: 100%;
+	background: black;
+	z-index: 4;
+}
+.timeline-event{
+	padding-top: 50px;;
+}
+.timeline-event-content{
+	display: block;
+}

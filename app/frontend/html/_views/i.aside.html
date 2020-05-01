@@ -2,15 +2,15 @@
 		<a href="/story">Historia</a>
 	</li>
 	<li>
-		<a href="/explain">Mapa</a>
+		<a href="/story/map" target="_blank">Mapa</a>
 	</li>
 	<li>
-		<a href="/explain/explain2">Conceptos</a>
+		<a href="/story/conceptual" target="_blank">Conceptos</a>
 	</li>
 	<li data-ng-show="ctrl.user.doc.roles.indexOf('admin')>-1">
 		<a href="/database">Documentos</a>
 	</li>
-	<li data-ng-show="ctrl.user.doc.roles.indexOf('user')>-1">
+	<li data-ng-show="ctrl.user.doc.roles.indexOf('admin')>-1">
 		<a href="/directory/public">Directorio Público</a>
 	</li>
 	<li data-ng-show="ctrl.user.doc.roles.indexOf('admin')>-1">

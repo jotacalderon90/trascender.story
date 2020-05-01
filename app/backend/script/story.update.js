@@ -7,8 +7,12 @@ const mongodb = new (require("../lib/mongodb"))({config: config});
 
 let create = async function(){
 	await mongodb.start();
-	let coll = await mongodb.find("story",{tag: {$in:["Servicios"]}});
+	let coll = await mongodb.find("story");//{tag: {$in:["Servicios"]}});
 	for(let i=0;i<coll.length;i++){
+		
+		coll[i].public = true;
+		await mongodb.updateOne("story",coll[i]._id,coll[i]);
+		console.log(i + " actualizado");
 		
 		/*for(let x=0;x<piramide.length;x++){
 			let x1 = coll[i].tag.indexOf(piramide[x]);
@@ -27,8 +31,7 @@ let create = async function(){
 		let pi = coll[i].tag.indexOf("Servicios");
 		coll[i].tag.splice(pi,0,"Telecomunicaciones");
 		
-		await mongodb.updateOne("story",coll[i]._id,coll[i]);
-		console.log(i + " actualizado");*/
+		*/
 	}
 }
 create();
