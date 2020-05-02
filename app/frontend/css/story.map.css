@@ -192,35 +192,35 @@ html,body{
 @media (max-width: 768px) {
 	#dvMap{
 		position: relative;
-		width: 100%;
+		width: 50%;
 		height: 50%;
-		top: 50%;
+		top: 0;
+		left: 50%;
 	}
 	#dvTimeline{
 		position: absolute;
-		width: 100%;
-		height: 50%;
+		width: 50%;
+		height: 100%;
 		top: 0;
 	}
 	.bk{
-		width: 100%;
-		height: 50%;
-	}
-	.timeline-event-content{
-		height: auto;
+		width: 50%;
+		height: 100%;
 	}
 	.timeline-series dt{
-		padding-top: 20px;
+		padding-top: 0px;
 	}
-	article .image{
-		height: 100px;
-		width: 75%;
-		float: left;
+	#dvTimeline dt a{
+		font-size: 18px !important;
 	}
-	article .btn-next i{
-		font-size: 40px;
+	.timeline-series dd h3{
+		font-size: 16px;
 	}
 	#dvGO{
-		display: none;
+		position: absolute;
+		width: 50%;
+		height: 50%;
+		top: 50%;
+		left: 50%;
 	}
 }
