@@ -10,6 +10,9 @@
 			<ul class="list-unstyled list-tags" id="ul_tag_{{row._id}}">
 				<li data-ng-repeat="tag in row.tag">
 					<a class="label label-success" href="/story/categoria/{{tag}}">{{tag}}</a>
+					<a class="label label-danger" target="_blank" data-ng-href="/story/map?tag={{tag}}">
+						<i class="fa fa-map"></i>
+					</a>
 				</li>
 			</ul>
 			<ul class="list-unstyled list-fonts">
@@ -29,9 +32,6 @@
 					</a>
 				</li>
 			</ul>
-			<a class="label label-danger label-map" target="_blank" data-ng-href="/story/map?tag={{row.tag[row.tag.length-1]}}">
-				<i class="fa fa-map"></i>
-			</a>
 		</div>
 		<button class="btn btn-primary btn-xs visible-xs pull-right btn-next" data-ng-click="ctrl.collection.next()">
 			<i class="fa fa-arrow-down"></i>
