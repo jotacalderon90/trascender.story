@@ -188,3 +188,39 @@ html,body{
 .leaflet-control-attribution{
 	display: none;
 }
+
+@media (max-width: 768px) {
+	#dvMap{
+		position: relative;
+		width: 100%;
+		height: 50%;
+		top: 50%;
+	}
+	#dvTimeline{
+		position: absolute;
+		width: 100%;
+		height: 50%;
+		top: 0;
+	}
+	.bk{
+		width: 100%;
+		height: 50%;
+	}
+	.timeline-event-content{
+		height: auto;
+	}
+	.timeline-series dt{
+		padding-top: 20px;
+	}
+	article .image{
+		height: 100px;
+		width: 75%;
+		float: left;
+	}
+	article .btn-next i{
+		font-size: 40px;
+	}
+	#dvGO{
+		display: none;
+	}
+}

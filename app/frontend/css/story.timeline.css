@@ -2,6 +2,7 @@
 	border-left: 2px solid #ccc;
 	margin: 20px auto;
 	width: 900px;
+	max-width: 100%;
 }
 
 .timeline-toggle {
