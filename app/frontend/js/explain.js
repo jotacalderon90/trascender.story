@@ -68,8 +68,9 @@ app.controller("explainCtrl", function(trascender,$scope){
 					this.removeMarker();
 					if(doc && doc.LAT && doc.LNG){
 						this.marker = L.marker([doc.LAT, doc.LNG]).addTo(this.map);
-						this.map.setView([doc.LAT, doc.LNG],3/*((doc.zoom)?doc.zoom:2)*/, {animate: true, pan: {duration: 1 }});
+						this.map.setView([doc.LAT, doc.LNG],((doc.ZOOM)?doc.ZOOM:3), {animate: true, pan: {duration: 1 }});
 					}
+					console.log(doc);
 				},
 				removeMarker: function(){
 					try{
