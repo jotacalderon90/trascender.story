@@ -103,7 +103,7 @@
 }
 
 .timeline-event-content img {
-	width: 100%;
+	width: auto;
 }
 
 .clear {
