@@ -97,6 +97,9 @@ app.controller("explainCtrl", function(trascender,$scope){
 							case 71:
 								$("#dvGO").fadeToggle();//G
 								break;
+							case 76:
+								$("#dvTimeline").fadeToggle();//L
+								break;
 							case 77:
 								$("#dvMap").fadeToggle();//M
 								break;
@@ -109,9 +112,9 @@ app.controller("explainCtrl", function(trascender,$scope){
 							/*
 							case 123:
 								alert("nos vemos de otra forma ;)");
-								break;
+								break;*/
 							default:
-								console.log(e.keyCode);*/
+								console.log(e.keyCode);
 						}
 					});
 					
@@ -388,8 +391,6 @@ app.controller("explainCtrl", function(trascender,$scope){
 							tags.push({key: key, name: coll[i].title, parent: keybk});
 							key++;
 						}else{
-							console.log("l");
-							console.log(l);
 							tags[l].name += "\n" + coll[i].title;
 						}
 					}
