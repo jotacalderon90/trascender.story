@@ -327,8 +327,20 @@ app.controller("explainCtrl", function(trascender,$scope){
 					let tags = [];
 					let key = 0;
 					
-					let inserted = function(tag){
-						let i = tags.filter((r)=>{return r.name==tag}).length;
+					let inserted = function(tag,parent){
+						let i = tags.filter((r)=>{
+							let b = false;
+							if(r.name==tag){
+								if(parent!=null){
+									if(r.parent==getParentId(parent)){
+										b = true;
+									}
+								}else{
+									b = true;
+								}
+							}
+							return b;
+						}).length;
 						if(i==0){
 							return false;
 						}else{
@@ -337,39 +349,59 @@ app.controller("explainCtrl", function(trascender,$scope){
 					}
 					
 					let getParentId = function(tag){
-						for(let i=0;i<tags.length;i++){
+						for(let i=tags.length-1;i>=0;i--){
 							if(tags[i].name == tag){
-								return i;
+								return tags[i].key;
 							}
 						}
 					}
 					
+					let lastWhitKey = function(parent){
+						for(let i=tags.length-1;i>=0;i--){
+							if(tags[i].parent == parent && !tags[i].istag){
+								return i;
+							}
+						}
+						return -1;
+					}
+					
+					let keybk = key;
 					for(let i=0;i<coll.length;i++){
+						let newkey = false;
 						for(let x=0;x<coll[i].tag.length;x++){
-							if(!inserted(coll[i].tag[x])){
+							if(!inserted(coll[i].tag[x], ((x!=0)?coll[i].tag[x-1]:null))){
 								let tag = {};
+								tag.istag = true;
 								tag.key = key;
 								tag.name = coll[i].tag[x];
 								if(x>0){
 									tag.parent = getParentId(coll[i].tag[x-1]);
 								}
-								
 								tags.push(tag);
-								
+								keybk = key;
+								newkey = true;
 								key++;
 							}
 						}
+						let l = lastWhitKey(getParentId(coll[i].tag_main));
+						if(l==-1){
+							tags.push({key: key, name: coll[i].title, parent: keybk});
+							key++;
+						}else{
+							console.log("l");
+							console.log(l);
+							tags[l].name += "\n" + coll[i].title;
+						}
 					}
 					
-					for(let i=0;i<tags.length;i++){
+					/*for(let i=0;i<tags.length;i++){
 						let CHILD = coll.filter((r)=>{return r.tag_main == tags[i].name;});
 						if(CHILD.length>0){
 							CHILD = CHILD.map((r)=>{return r.title;}).join("\n");
 							tags.push({key: key, name: CHILD, parent: i});
 							key++;
 						}
-						
-					}
+					}*/
 					
 					self.go.init(tags);
 					
