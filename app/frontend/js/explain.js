@@ -70,7 +70,6 @@ app.controller("explainCtrl", function(trascender,$scope){
 						this.marker = L.marker([doc.LAT, doc.LNG]).addTo(this.map);
 						this.map.setView([doc.LAT, doc.LNG],((doc.ZOOM)?doc.ZOOM:3), {animate: true, pan: {duration: 1 }});
 					}
-					console.log(doc);
 				},
 				removeMarker: function(){
 					try{
@@ -102,6 +101,10 @@ app.controller("explainCtrl", function(trascender,$scope){
 								break;
 							case 77:
 								$("#dvMap").fadeToggle();//M
+								break;
+							case 80://P
+								$("#dvGO").css("width","50%");
+								$("#dvGO").css("left","50%");
 								break;
 							case 83:
 								$("#mdCog").modal("toggle");//S
@@ -422,12 +425,17 @@ app.controller("explainCtrl", function(trascender,$scope){
 						}else if(d.length==1){
 							this.edit(d[0]);
 							$scope.$digest(function(){});
-					
 							self.map.setMarker(d[0]);
 						}
 					}catch(e){
 						alert(e);
 						console.log(e);
+					}
+				},
+				afterChangeMode: function(action,doc){
+					if(doc.AUDIO){
+						document.getElementById("audio").src = doc.AUDIO;
+						document.getElementById("audio").play();
 					}
 				},
 				beforeCreate: function(){

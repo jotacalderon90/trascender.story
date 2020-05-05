@@ -7,11 +7,13 @@ const mongodb = new (require("../lib/mongodb"))({config: config});
 
 let create = async function(){
 	await mongodb.start();
-	let coll = await mongodb.find("story");//{tag: {$in:["Servicios"]}});
+	let coll = await mongodb.find("map");//{tag: {$in:["Servicios"]}});
 	for(let i=0;i<coll.length;i++){
 		
-		coll[i].public = true;
-		await mongodb.updateOne("story",coll[i]._id,coll[i]);
+		if(coll[i].AUDIO){
+			coll[i].AUDIO = coll[i].AUDIO.replace("history","story");
+		}
+		await mongodb.updateOne("map",coll[i]._id,coll[i]);
 		console.log(i + " actualizado");
 		
 		/*for(let x=0;x<piramide.length;x++){
