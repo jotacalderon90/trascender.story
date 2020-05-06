@@ -103,8 +103,15 @@ app.controller("explainCtrl", function(trascender,$scope){
 								$("#dvMap").fadeToggle();//M
 								break;
 							case 80://P
-								$("#dvGO").css("width","50%");
-								$("#dvGO").css("left","50%");
+								if(this.goSPLIT){
+									$("#dvGO").css("width","100%");
+									$("#dvGO").css("left","0%");
+									this.goSPLIT = false;
+								}else{
+									$("#dvGO").css("width","50%");
+									$("#dvGO").css("left","50%");
+									this.goSPLIT = true;
+								}
 								break;
 							case 83:
 								$("#mdCog").modal("toggle");//S
