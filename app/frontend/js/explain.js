@@ -557,6 +557,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 							})); // the gray link shape
 					// create the model for the family tree
 					this.myDiagram.model = new go.TreeModel(DATA);
+					this.myDiagram.commandHandler.zoomToFit();
 				},
 				push: function(DATA){
 					this.init(DATA);
