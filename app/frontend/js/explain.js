@@ -91,6 +91,10 @@ app.controller("explainCtrl", function(trascender,$scope){
 					
 					$("#background,#loading").fadeIn();
 					
+					$("#dvGO").css("width","50%");
+					$("#dvGO").css("left","50%");
+					this.goSPLIT = true;
+					
 					$(document).keydown((e)=>{
 						switch(e.keyCode){
 							case 71:
