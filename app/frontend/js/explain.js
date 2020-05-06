@@ -383,9 +383,16 @@ app.controller("explainCtrl", function(trascender,$scope){
 					}
 					
 					let keybk = key;
+					
+					let contKEYS = 0;
+					
 					for(let i=0;i<coll.length;i++){
 						let newkey = false;
 						for(let x=0;x<coll[i].tag.length;x++){
+							if(!inserted(coll[i].tag[x], null)){
+								console.log();
+								contKEYS++;
+							}
 							if(!inserted(coll[i].tag[x], ((x!=0)?coll[i].tag[x-1]:null))){
 								let tag = {};
 								tag.istag = true;
@@ -402,12 +409,71 @@ app.controller("explainCtrl", function(trascender,$scope){
 						}
 						let l = lastWhitKey(getParentId(coll[i].tag_main));
 						if(l==-1){
-							tags.push({key: key, name: coll[i].title, parent: keybk});
+							tags.push({key: key, name: coll[i].title, parent: keybk, isChild: true});
 							key++;
 						}else{
 							tags[l].name += "\n" + coll[i].title;
 						}
 					}
+					
+					
+					if(true){//toMAP
+						let c = tags.filter((r)=>{return r.isChild});
+						//set cantParent
+						//set maxParent
+						let maxParent = 0;
+						for(let i=0;i<c.length;i++){
+							let keyParent = c[i].parent;
+							let findParent = true;
+							let contParent = 0;
+							
+							while(findParent){
+								let p = tags.filter((r)=>{return r.istag && r.key == keyParent})[0];
+								contParent++;
+								if(!isNaN(p.parent)){
+									keyParent = p.parent;
+								}else{
+									findParent = false;
+								}
+							}
+							c[i].contParent = contParent;
+							if(contParent>maxParent){
+								maxParent = contParent;
+							}
+						}
+						//create new childs to beauty map
+						for(let i=0;i<c.length;i++){
+							c[i].parentToCreate = maxParent - c[i].contParent;
+							
+							let pSlave	= tags.filter((r)=>{return r.istag && r.key == c[i].parent})[0];
+							let pMaster	= tags.filter((r)=>{return r.istag && r.key == pSlave.parent})[0];
+							let hasHelper = tags.filter((r)=>{return r.isHelper && r.parent == pSlave.parent});
+							if(hasHelper.length==1){
+								//YA CREO HELPERS BUSCAR PADRE
+								let sH = true;
+								hasHelper = hasHelper[0];
+								while(sH){
+									let auxHelper = tags.filter((r)=>{return r.isHelper && r.parent == hasHelper.key});
+									if(auxHelper.length==1){
+										hasHelper = auxHelper[0];
+									}else{
+										sH = false;
+									}
+								}
+								pSlave.parent = hasHelper.key;
+							}else{
+								let keyParent = pSlave.parent;
+								let keyBackup = null;
+								for(let x=0;x<c[i].parentToCreate;x++){
+									tags.push({key: key, name: "", parent: keyParent, isHelper: true});
+									keyParent = key;
+									key++;
+								}
+								pSlave.parent = keyParent;
+							}
+						}
+					}
+					
 					
 					/*for(let i=0;i<tags.length;i++){
 						let CHILD = coll.filter((r)=>{return r.tag_main == tags[i].name;});
