@@ -44,6 +44,14 @@ self.prototype.valid = async function(doc){
 
 
 
+//@route('/story/new')
+//@method(['get'])
+self.prototype.render_other = async function(req,res,next){
+	res.render("story/form");
+}
+
+
+
 //@route('/api/story')
 //@method(['post'])
 //@roles(['user'])
