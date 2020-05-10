@@ -53,7 +53,7 @@ app.controller("explainCtrl", function(trascender,$scope){
 					}
 					$(".leaflet-control-zoom").css("display","none");
 					$(".leaflet-control-layers").css("display","none");
-					
+					this.markers = [];
 				},
 				onDragMarker: function(event){
 					let layer = event.layer;
@@ -78,6 +78,17 @@ app.controller("explainCtrl", function(trascender,$scope){
 						}
 					}catch(e){
 						
+					}
+				},
+				removeMarkers: function(){
+					for(let i=0;i<this.markers.length;i++){
+						this.map.removeLayer(this.markers[i]);
+					}
+					this.markers = [];
+				},
+				addMarker: function(doc){
+					if(doc && doc.LAT && doc.LNG){
+						this.markers.push(L.marker([doc.LAT, doc.LNG]).addTo(this.map));
 					}
 				}
 			});
@@ -137,6 +148,15 @@ app.controller("explainCtrl", function(trascender,$scope){
 					this.listTAG = [];
 					this.started = false;
 					let u = new URL(location.href);
+					
+					if(u.searchParams.get("show_tag")=="1"){
+						this.show_tag = true;
+					}
+					
+					if(u.searchParams.get("id")!=null){
+						this.show_id = u.searchParams.get("id");
+					}
+					
 					let t = u.searchParams.get("tag");
 					if(t){
 						this.query.tag = t;
@@ -224,13 +244,17 @@ app.controller("explainCtrl", function(trascender,$scope){
 					
 					$("#dvTimeline").fadeIn(()=>{
 						$("#background,#loading").fadeOut();
+						$scope.$digest();
+						if(this.show_id){
+							this.preSELECT();
+						}else{
+							this.next();
+						}
 					});
-					
-					$scope.$digest(function(){});
-					
-					this.next();
-					
-					this.setConceptualMap(this.coll);
+				},
+				preSELECT: async function(){
+					await this.wait(1000);
+					this.setDOC(this.coll.filter((r)=>{return r._id==this.show_id})[0]);
 				},
 				getRESUME: async function(){
 					try{
@@ -325,7 +349,11 @@ app.controller("explainCtrl", function(trascender,$scope){
 				refresh: function(){
 					this.moveTimeline(this.coll[this.index]);
 					this.refreshCONCEPTUAL(this.index);
-					self.document.get(this.coll[this.index]._id);
+					if(this.show_tag){
+						self.document.getFULL(this.coll.slice(0,this.index+1));
+					}else{
+						self.document.get(this.coll[this.index]._id);
+					}
 				},
 				moveTimeline: function(d){
 					let o = $($("#" + d._id)[0]);
@@ -390,7 +418,6 @@ app.controller("explainCtrl", function(trascender,$scope){
 						let newkey = false;
 						for(let x=0;x<coll[i].tag.length;x++){
 							if(!inserted(coll[i].tag[x], null)){
-								console.log();
 								contKEYS++;
 							}
 							if(!inserted(coll[i].tag[x], ((x!=0)?coll[i].tag[x-1]:null))){
@@ -509,6 +536,16 @@ app.controller("explainCtrl", function(trascender,$scope){
 						console.log(e);
 					}
 				},
+				get2: async function(id){
+					try{
+						let d = await this.service_collection({query: JSON.stringify({STORY: id}), options: "{}"});
+						if(d.length==1){
+							self.map.addMarker(d[0]);
+						}
+					}catch(e){
+						console.log(e);
+					}
+				},
 				afterChangeMode: function(action,doc){
 					if(doc.AUDIO){
 						document.getElementById("audio").src = doc.AUDIO;
@@ -531,6 +568,12 @@ app.controller("explainCtrl", function(trascender,$scope){
 					$('#mdForm').modal('hide');
 					$('.leaflet-draw-draw-marker').fadeIn();
 					$('.leaflet-draw-draw-marker').html("M");
+				},
+				getFULL: function(coll){
+					self.map.removeMarkers();
+					for(let i=0;i<coll.length;i++){
+						this.get2(coll[i]._id);
+					}
 				}
 			});
 		},
