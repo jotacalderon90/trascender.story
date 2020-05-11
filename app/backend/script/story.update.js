@@ -7,13 +7,12 @@ const mongodb = new (require("../lib/mongodb"))({config: config});
 
 let create = async function(){
 	await mongodb.start();
-	let coll = await mongodb.find("map");//{tag: {$in:["Servicios"]}});
+	let coll = await mongodb.find("story",{tag: {$in:["La Colonia"]}, year: {$lt: 1700}});
 	for(let i=0;i<coll.length;i++){
 		
-		if(coll[i].AUDIO){
-			coll[i].AUDIO = coll[i].AUDIO.replace("history","story");
-		}
-		await mongodb.updateOne("map",coll[i]._id,coll[i]);
+		coll[i].tag.splice(2,0,"Siglo XVII");
+		console.log(coll[i].tag);
+		await mongodb.updateOne("story",coll[i]._id,coll[i]);
 		console.log(i + " actualizado");
 		
 		/*for(let x=0;x<piramide.length;x++){
