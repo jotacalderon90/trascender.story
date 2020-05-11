@@ -7,10 +7,10 @@ const mongodb = new (require("../lib/mongodb"))({config: config});
 
 let create = async function(){
 	await mongodb.start();
-	let coll = await mongodb.find("story",{tag: {$in:["La Colonia"]}, year: {$lt: 1700}});
+	let coll = await mongodb.find("story",{tag: {$in:["La Colonia"]}, year: {$gte: 1700}});
 	for(let i=0;i<coll.length;i++){
 		
-		coll[i].tag.splice(2,0,"Siglo XVII");
+		coll[i].tag.splice(2,0,"Siglo XVIII");
 		console.log(coll[i].tag);
 		await mongodb.updateOne("story",coll[i]._id,coll[i]);
 		console.log(i + " actualizado");
